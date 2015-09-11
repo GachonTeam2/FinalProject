@@ -12,6 +12,9 @@
             padding: 0;
             margin: 0;
             }
+            
+            .debug {outline: 1px solid red;}
+            
             #root{margin:auto; width:100%;}
             #spinner{width:100%;}
             #option{float:left; width:20%; height:90%;}
@@ -21,11 +24,12 @@
         </style>
 </head>
 <body>
-        <div id="root">
-        <div id="spinner" >spinner</div>
-        <div id="option">option</div>
-        <div id="delete" align="right">delete</div>
-        <div id="content"align="center">content</div>
-        <div id="add" align="center">+</div>
+        <div id="root" class="debug">
+        <div id="spinner"class="debug" >spinner</div>
+        <div id="option"class="debug">option</div>
+        <div id="delete" align="right"class="debug">delete</div>
+        <div id="content"align="center"class="debug">content</div>
+        <div id="add" align="center"class="debug">+</div>
+        </div>
     </body>
 </html>
