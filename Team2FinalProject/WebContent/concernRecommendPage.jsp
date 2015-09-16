@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>concern</title>
 <style>
-    html, body{width:100%; height:100%; padding:0; margin: 0;}
+    html, body{width:100%; height:700px; padding:0; margin: 0;}
     table{margin:0 auto; width:100%;text-align:center;}
     category1{position:relative;width:20%;text-align=center;}
 </style>

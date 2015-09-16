@@ -8,7 +8,7 @@ html, body{
      
 }
 
-.debug { border: 1px solid red; }
+.debug { outline: 1px solid red; }
 
 #detail_wrapper{
 

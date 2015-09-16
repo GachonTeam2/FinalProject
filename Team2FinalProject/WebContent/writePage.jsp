@@ -5,31 +5,88 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>write</title>
- <style>
-            html, body{
-            width:100%;
-            height:100%;
-            padding: 0;
-            margin: 0;
-            }
-            
-            .debug {outline: 1px solid red;}
-            
-            #root{margin:auto; width:100%;}
-            #spinner{width:100%;}
-            #option{float:left; width:20%; height:90%;}
-            #delete{float:left; width:80%;}
-            #content{float:left; width:80%;}
-            #add{float:left; width:80%;}
-        </style>
+<style>
+html, body {
+    width: 100%;
+    height: 700px;
+}
+
+.debug {
+    border: 1px solid red;
+}
+
+#title_box {
+    width: 100%;
+    height: 10%;
+}
+
+
+
+#title {
+    float: right;
+    width: 80%;
+    height: 100%;
+}
+
+#contents_box {
+    width: 100%;
+    height: 90%;
+}
+
+#option {
+    float: left;
+    width: 10%;
+    height: 30%;
+    margin-left: 9%;
+    margin-top: 10%;
+}
+
+#content {
+    width: 60%;
+    height: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 2%;
+}
+
+#add {
+    width: 60%;
+    height: 10%;
+    margin-left: 20%;
+    margin-right: 20%;
+    maring-bottom: 50%;
+}
+</style>
 </head>
 <body>
-        <div id="root" class="debug">
-        <div id="spinner"class="debug" >spinner</div>
-        <div id="option"class="debug">option</div>
-        <div id="delete" align="right"class="debug">delete</div>
-        <div id="content"align="center"class="debug">content</div>
-        <div id="add" align="center"class="debug">+</div>
+
+
+    <div id="title_box">
+        <div id="title">
+            <h2>title name</h2>
         </div>
-    </body>
+        <div id="cate_list">
+            <select style="margin-left: 15%; margin-top: 10px;">
+                <option>list 1</option>
+                <option>list 2</option>
+                <option>list 3</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div id="contents_box" align="center">
+        <div id="option" align="center" class="debug">
+            <h3>option</h3>
+        </div>
+        <div id="content" align="center" class="debug"></div>
+
+
+        <div id="add" align="center" class="debug">
+            <h2>contents add</h2>
+        </div>
+    </div>
+
+
+</body>
 </html>
