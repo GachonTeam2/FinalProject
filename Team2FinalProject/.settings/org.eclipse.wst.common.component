@@ -2,6 +2,7 @@
     <wb-module deploy-name="Team2FinalProject">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/com.lecture.finalproject.test"/>
         <property name="context-root" value="Team2FinalProject"/>
         <property name="java-output-path" value="/Team2FinalProject/build/classes"/>
     </wb-module>

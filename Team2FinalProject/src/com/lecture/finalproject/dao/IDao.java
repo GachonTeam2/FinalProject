@@ -2,6 +2,6 @@ package com.lecture.finalproject.dao;
 
 
 
-public interface IDaoRecommend {
+public interface IDao {
     
 }
