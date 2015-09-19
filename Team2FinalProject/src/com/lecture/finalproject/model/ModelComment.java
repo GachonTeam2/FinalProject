@@ -1,6 +1,5 @@
 package com.lecture.finalproject.model;
 
-import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,22 +9,17 @@ public class ModelComment {
     private static Logger logger = LoggerFactory.getLogger(ModelComment.class);
     
     private int comment_no             ;
-    private Date commentPost_date      ;
+    private String commentPost_date     ;
     private String content             ;
     private String user_id             ;
     private int travelPost_no          ;
-    public ModelComment(int comment_no, Date commentPost_date, String content,
-            String user_id, int travelPost_no) {
-        super();
-        this.comment_no = comment_no;
-        this.commentPost_date = commentPost_date;
-        this.content = content;
-        this.user_id = user_id;
-        this.travelPost_no = travelPost_no;
-    }
+ 
     public ModelComment() {
         super();
     }
+    
+    
+    
     public static Logger getLogger() {
         return logger;
     }
@@ -38,10 +32,10 @@ public class ModelComment {
     public void setComment_no(int comment_no) {
         this.comment_no = comment_no;
     }
-    public Date getCommentPost_date() {
+    public String getCommentPost_date() {
         return commentPost_date;
     }
-    public void setCommentPost_date(Date commentPost_date) {
+    public void setCommentPost_date(String commentPost_date) {
         this.commentPost_date = commentPost_date;
     }
     public String getContent() {
@@ -68,5 +62,17 @@ public class ModelComment {
                 + commentPost_date + ", content=" + content + ", user_id="
                 + user_id + ", travelPost_no=" + travelPost_no + "]";
     }
-    
+
+
+
+    public ModelComment(int comment_no, String commentPost_date,
+            String content, String user_id, int travelPost_no) {
+        super();
+        this.comment_no = comment_no;
+        this.commentPost_date = commentPost_date;
+        this.content = content;
+        this.user_id = user_id;
+        this.travelPost_no = travelPost_no;
+    }
+
 }

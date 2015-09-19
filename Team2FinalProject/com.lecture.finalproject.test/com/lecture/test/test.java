@@ -12,7 +12,18 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.lecture.finalproject.dao.DaoTravlePlace;
+import com.lecture.finalproject.dao.IDao;
+import com.lecture.finalproject.model.ModelComment;
+import com.lecture.finalproject.model.ModelConcern;
+import com.lecture.finalproject.model.ModelFeature;
 import com.lecture.finalproject.model.ModelFriends;
+import com.lecture.finalproject.model.ModelHash;
+import com.lecture.finalproject.model.ModelImage;
+import com.lecture.finalproject.model.ModelInformation;
+import com.lecture.finalproject.model.ModelLocation;
+import com.lecture.finalproject.model.ModelPostFeatureTable;
+import com.lecture.finalproject.model.ModelTravelPost;
 import com.lecture.finalproject.service.IServiceParser;
 import com.lecture.finalproject.service.ServiceFirendsParser;
 
@@ -54,5 +65,22 @@ public class test {
         else
             assertTrue(false);
 
+    }
+    @Test
+    public void test1() {
+ 
+        IDao one = new DaoTravlePlace();
+            
+       List<ModelConcern> result = null;
+       result = one.getConcernList("123");
+        
+        if(result != null)
+        {
+            for(ModelConcern i : result)
+                System.out.println(i);
+            assertTrue(true);
+        }
+        else
+            assertTrue(false);
     }
 }

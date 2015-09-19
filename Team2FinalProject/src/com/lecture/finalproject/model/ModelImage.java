@@ -9,6 +9,7 @@ public class ModelImage {
     
     private String image_url  ;
     private int travelPost_no    ;
+    
     public ModelImage(String image_url, int travelPost_no) {
         super();
         this.image_url = image_url;
