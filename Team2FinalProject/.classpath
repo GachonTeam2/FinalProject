@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="com.lecture.finalproject.test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/win64">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>
@@ -13,6 +14,10 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Program Files (x86)/MySQL/Connector.J 5.1/mysql-connector-java-5.1.36-bin.jar"/>
+=======
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+>>>>>>> 19525dd7940a4b6356c521facb237f320d214c7c
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

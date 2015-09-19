@@ -1,0 +1,30 @@
+{
+  "data": [
+    {
+      "name": "유총재",
+      "id": "100001169341606"
+    },
+    {
+      "name": "Yoo SoYeop",
+      "id": "100001599122518"
+    },
+    {
+      "name": "Sujeong Choi",
+      "id": "100001888681921"
+    },
+    {
+      "name": "박태수",
+      "id": "100002227521378"
+    },
+    {
+      "name": "Hyunmin  Kim",
+      "id": "568020513314976"
+    }
+  ],
+  "paging": {
+    "next": "https://graph.facebook.com/v2.4/683315618466670/friends?format=json&access_token=CAACEdEose0cBABR1nnIUvSZCcPjgF1I98VngrDrY9Pr2k8NSwwFBM2RtV8GSrIzAjDXokf829WpEerZCPpoQnQSOw0g3NfgFXyA2B3VUrZCJ34eMMfmNdTGewzhaoqPlRcZAKtDUOjA5j9bb1zWdd8zkvU4QwQSmQBZA0O10ZBxNgDeoAQhdxjLZAZAE9CxrNhP3ctWKx7CK5wg9okXIZAGN7&limit=25&offset=25&__after_id=enc_AdBZBfoIXykUccNqKWFXU4ndhgL2GUfoXfaTsZA5qc0Dj4OkIJctmHQiILcQZB51DMKZCCPlo8SRS5EZCN65rCEXr5NuB"
+  },
+  "summary": {
+    "total_count": 215
+  },
+}

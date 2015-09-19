@@ -4,32 +4,31 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class ModelPostFeatureTableList {
+public class ModelPostFeatureTable {
     private static Logger logger = LoggerFactory
-                                         .getLogger(ModelPostFeatureTableList.class);
+                                         .getLogger(ModelPostFeatureTable.class);
     
-    private String image_url ;
+    private String table_name ;
     private int travelPost_no;
-    
-    public ModelPostFeatureTableList(String image_url, int travelPost_no) {
+    public ModelPostFeatureTable(String table_name, int travelPost_no) {
         super();
-        this.image_url = image_url;
+        this.table_name = table_name;
         this.travelPost_no = travelPost_no;
     }
-    public ModelPostFeatureTableList() {
+    public ModelPostFeatureTable() {
         super();
     }
     public static Logger getLogger() {
         return logger;
     }
     public static void setLogger(Logger logger) {
-        ModelPostFeatureTableList.logger = logger;
+        ModelPostFeatureTable.logger = logger;
     }
-    public String getImage_url() {
-        return image_url;
+    public String getTable_name() {
+        return table_name;
     }
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
+    public void setTable_name(String table_name) {
+        this.table_name = table_name;
     }
     public int getTravelPost_no() {
         return travelPost_no;
@@ -39,8 +38,10 @@ public class ModelPostFeatureTableList {
     }
     @Override
     public String toString() {
-        return "ModelPostFeatureTableList [image_url=" + image_url
+        return "ModelPostFeatureTable [table_name=" + table_name
                 + ", travelPost_no=" + travelPost_no + "]";
     }
+    
+    
    
 }
