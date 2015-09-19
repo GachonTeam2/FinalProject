@@ -97,7 +97,8 @@ public class TravelParser {
                     tp_L.setAddress(null);
                     tp_L.setCity1(null);
                     tp_L.setCity2(null);
-                    
+                    tp_L.setLongitude(null);
+                    tp_L.setLatitude(null);
                     System.out.println(tp_M.getTitle()+"("+no+")");
                 }
                 
