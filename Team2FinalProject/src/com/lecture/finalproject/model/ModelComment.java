@@ -68,5 +68,7 @@ public class ModelComment {
                 + commentPost_date + ", content=" + content + ", user_id="
                 + user_id + ", travelPost_no=" + travelPost_no + "]";
     }
+ 
+    
     
 }
