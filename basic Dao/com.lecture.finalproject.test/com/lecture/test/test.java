@@ -73,15 +73,13 @@ public class test {
     @Test
     public void test1() {
  
-        IDao one = new DaoTravlePlace();
-            
-       List<Object> result = null;
-    
-        
+        IDao one = new DaoTravlePlace();  
+        List<ModelTravelPost> result = one.getTravelPostList("123");
+                 
         if(result != null)
         {
-          
-           
+            for(ModelTravelPost i : result)
+                System.out.println(i);
             assertTrue(true);
         }
         else
