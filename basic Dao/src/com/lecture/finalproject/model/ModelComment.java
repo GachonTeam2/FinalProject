@@ -62,11 +62,6 @@ public class ModelComment {
                 + commentPost_date + ", content=" + content + ", user_id="
                 + user_id + ", travelPost_no=" + travelPost_no + "]";
     }
-<<<<<<< HEAD
- 
-    
-    
-=======
 
 
 
@@ -80,5 +75,4 @@ public class ModelComment {
         this.travelPost_no = travelPost_no;
     }
 
->>>>>>> 19525dd7940a4b6356c521facb237f320d214c7c
 }
