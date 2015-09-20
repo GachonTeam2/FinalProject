@@ -38,13 +38,13 @@ public class TravelParser {
         
         try{
             
-            tp_db.Database();
+           // tp_db.Database();
             new TravelParser().start();
             
         }catch (Exception e){
             e.printStackTrace();
         }
-        tp_db.close();
+     //  tp_db.close();
     }
     
     private void start() throws Exception{
@@ -92,8 +92,8 @@ public class TravelParser {
                     tp_M.setTitle(node.getTextContent());
                     
                     System.out.println(no);
-                    tp_db.insert("insert into travelpost_tb(travelPost_no,title,travelPost_date,view_count,like_count,user_id) values("+no+","+make(tp_M.getTitle())+","+"now(),"+"0,0,"+make("khyunm91")+")");
-                    tp_db.insert("insert into location_tb(city1,address,latitude,longitude,travelPost_no) values("+make(tp_L.getCity1())+","+make(tp_L.getAddress())+","+make(tp_L.getLatitude())+","+make(tp_L.getLongitude())+","+no+")");;
+                 //   tp_db.insert("insert into travelpost_tb(travelPost_no,title,travelPost_date,view_count,like_count,user_id) values("+no+","+make(tp_M.getTitle())+","+"now(),"+"0,0,"+make("khyunm91")+")");
+                 //   tp_db.insert("insert into location_tb(city1,address,latitude,longitude,travelPost_no) values("+make(tp_L.getCity1())+","+make(tp_L.getAddress())+","+make(tp_L.getLatitude())+","+make(tp_L.getLongitude())+","+no+")");;
                     tp_L.setAddress(null);
                     tp_L.setCity1(null);
                     tp_L.setCity2(null);
@@ -109,9 +109,7 @@ public class TravelParser {
             }
         }
         
-    }
-    
-    
+    }    
     private Document parseXML(InputStream stream) throws Exception{
         
         DocumentBuilderFactory objDocumentBuilderFactory = null;
