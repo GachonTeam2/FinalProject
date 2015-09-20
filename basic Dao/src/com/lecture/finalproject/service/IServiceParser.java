@@ -12,6 +12,6 @@ public interface IServiceParser {
     
     public abstract String jsonFileReader (String URL);
     
-    public abstract List<ModelFriends> jsonParsing(String jsonData); 
+    public abstract List<Object> jsonParsing(String jsonData); 
     
 }

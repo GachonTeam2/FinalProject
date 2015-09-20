@@ -1,8 +1,6 @@
 package com.lecture.finalproject.service;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,20 +10,20 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.lecture.finalproject.model.ModelFriends;
+import com.lecture.finalproject.model.ModelMessage;
 
-public class ServiceFirendsParser implements IServiceParser {
+
+public class ServicePostsParser implements IServiceParser{
     private static Logger logger = LoggerFactory
-                                         .getLogger(ServiceFirendsParser.class);
-
+                                         .getLogger(ServicePostsParser.class);
     @Override
     public String jsonFileReader(String URL) {
 
@@ -47,7 +45,6 @@ public class ServiceFirendsParser implements IServiceParser {
             e.printStackTrace();
             logger.error("jsonFileReader", e.getStackTrace());
         }
-
         return result;
     }
     
@@ -55,7 +52,7 @@ public class ServiceFirendsParser implements IServiceParser {
     public List<Object> jsonParsing(String jsonData) {
         // TODO Auto-generated method stub
         
-        List<Object> result = new   ArrayList<Object>();
+        List<Object> result = new ArrayList<Object>();
         
         while(true){
             try {
@@ -65,17 +62,21 @@ public class ServiceFirendsParser implements IServiceParser {
             
                  jsonObject = (JSONObject) jsonParser.parse(jsonData);
               
-                JSONArray friendInfoArray = (JSONArray) jsonObject.get("data");
-                         
-                for(int i=0; i<friendInfoArray.size(); i++){
+                JSONArray PostInfoArray = (JSONArray) jsonObject.get("data");
+                
+               
+                for(int i=0; i<PostInfoArray.size(); i++){
                     
-                    JSONObject friendObject = (JSONObject) friendInfoArray.get(i);
-                    ModelFriends one = new ModelFriends();
+                
+                    JSONObject friendObject = (JSONObject) PostInfoArray.get(i);
+                    String temp = (String)friendObject.get("message");
                     
-                    one.setFriendName((String)friendObject.get("name"));
-                    one.setFriend_id((String)friendObject.get("id"));
-                    
-                    result.add(one);
+                    if(temp != null)
+                    {              
+                        ModelMessage one = new ModelMessage();
+                        one.setMessage(temp);                   
+                        result.add(one);
+                   }
                 }
              
                 JSONObject nextPageObject = (JSONObject) jsonObject.get("paging");
@@ -107,8 +108,9 @@ public class ServiceFirendsParser implements IServiceParser {
                      
                     continue;
                  }
-                 else
+                 else{             
                      break;
+                 }
                
             } catch (ParseException e) {
                 // TODO Auto-generated catch block
@@ -119,15 +121,5 @@ public class ServiceFirendsParser implements IServiceParser {
         return result;
         
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
 }
