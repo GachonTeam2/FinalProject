@@ -7,14 +7,17 @@ import org.slf4j.LoggerFactory;
 
 
 public class ModelTravelPost {
-    private static Logger logger = LoggerFactory
-                                         .getLogger(ModelTravelPost.class);
+
     private int travelPost_no      ;
     private String title           ;
     private String travelPost_date ;
     private int view_count         ;
     private int like_count         ;
     private String user_id  ;
+    
+    private static Logger logger = LoggerFactory
+            .getLogger(ModelTravelPost.class);
+    
     public ModelTravelPost(int travelPost_no, String title,
             String travelPost_date, int view_count, int like_count,
             String user_id) {

@@ -1,10 +1,14 @@
 package com.lecture.finalproject.service;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,13 +37,9 @@ public class ServiceFirendsParser implements IServiceParser {
             BufferedReader in = new BufferedReader(new FileReader(URL));
          
             
-            while ((row = in.readLine()) != null) {
-    
+            while ((row = in.readLine()) != null)   
                 result += row + "\n";
            
-                  }
-
-                  //다 뽑아먹었으니 버퍼리더를 닫아 준다.
                   in.close();
 
         } catch (IOException e) {
@@ -52,25 +52,19 @@ public class ServiceFirendsParser implements IServiceParser {
     }
     
     @Override
-    public List<ModelFriends> jsonParsing(String jsonData) {
+    public List<Object> jsonParsing(String jsonData) {
         // TODO Auto-generated method stub
         
-        List<ModelFriends> result = new   ArrayList<ModelFriends>();
-        ServiceHttpRequest request = new ServiceHttpRequest();
+        List<Object> result = new   ArrayList<Object>();
         
         while(true){
             try {
                 
                 JSONParser jsonParser = new JSONParser();
-                JSONObject jsonObject = (JSONObject) jsonParser.parse(jsonData); 
-                
-                JSONObject errorObject = (JSONObject) jsonObject.get("error");
-                
-                if(errorObject != null){
-                    logger.error((String)errorObject.get("message"));
-                    break;
-                }
-                       
+                JSONObject jsonObject;
+            
+                 jsonObject = (JSONObject) jsonParser.parse(jsonData);
+              
                 JSONArray friendInfoArray = (JSONArray) jsonObject.get("data");
                          
                 for(int i=0; i<friendInfoArray.size(); i++){
@@ -89,7 +83,28 @@ public class ServiceFirendsParser implements IServiceParser {
                  if(nextPageObject != null)
                  {
                      String nextPageInfoURL = (String)nextPageObject.get("next");
-                     jsonData =  request.makeHTTPPOSTRequest(nextPageInfoURL);
+                     
+                     try{     
+
+                         URL url = new URL(nextPageInfoURL);
+                         HttpURLConnection request1 = (HttpURLConnection) url.openConnection();
+                         request1.setRequestMethod("GET");
+                         request1.connect();
+                         InputStream is = request1.getInputStream();
+                         BufferedReader bf_reader = new BufferedReader(new InputStreamReader(is));
+                         StringBuilder sb = new StringBuilder();
+                         String line = "";
+                         jsonData = "";
+                         
+                         while ((line = bf_reader.readLine()) != null) {
+                             sb.append(line).append("\n");
+                         }               
+                         
+                         jsonData = sb.toString();
+                     } catch(Exception e){
+                         e.printStackTrace();
+                     }      
+                     
                     continue;
                  }
                  else
@@ -98,7 +113,7 @@ public class ServiceFirendsParser implements IServiceParser {
             } catch (ParseException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-            }
+            } 
         }
         
         return result;

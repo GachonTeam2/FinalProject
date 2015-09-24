@@ -22,10 +22,12 @@ import com.lecture.finalproject.model.ModelHash;
 import com.lecture.finalproject.model.ModelImage;
 import com.lecture.finalproject.model.ModelInformation;
 import com.lecture.finalproject.model.ModelLocation;
+import com.lecture.finalproject.model.ModelMessage;
 import com.lecture.finalproject.model.ModelPostFeatureTable;
 import com.lecture.finalproject.model.ModelTravelPost;
 import com.lecture.finalproject.service.IServiceParser;
 import com.lecture.finalproject.service.ServiceFirendsParser;
+import com.lecture.finalproject.service.ServicePostsParser;
 
 
 public class test {
@@ -49,17 +51,19 @@ public class test {
     
     @Test
     public void test() {
-        IServiceParser one = new ServiceFirendsParser();
+        IServiceParser one = new ServicePostsParser();
         String jsonData;
-        List<ModelFriends> result = null;
+        List<Object> result = null;
         
-        jsonData = one.jsonFileReader("C:\\Users\\park\\Documents\\FinalProject\\Team2FinalProject\\WebContent\\sampleData\\friendsSample.txt");
+        jsonData = one.jsonFileReader("C:\\Users\\park\\Documents\\FinalProject\\basic Dao\\WebContent\\sampleData\\sampleTimeLineData.txt");
         result =  one.jsonParsing(jsonData);
         
         if(result != null)
         {
-            for(ModelFriends i : result)
-                System.out.println(i);
+            for(Object i : result)
+                System.out.println(((ModelMessage)i).getMessage());
+            
+            System.out.println(result.size());
             assertTrue(true);
         }
         else
@@ -69,14 +73,12 @@ public class test {
     @Test
     public void test1() {
  
-        IDao one = new DaoTravlePlace();
-            
-       List<ModelConcern> result = null;
-       result = one.getConcernList("123");
-        
+        IDao one = new DaoTravlePlace();  
+        List<ModelTravelPost> result = one.getTravelPostList("123");
+                 
         if(result != null)
         {
-            for(ModelConcern i : result)
+            for(ModelTravelPost i : result)
                 System.out.println(i);
             assertTrue(true);
         }

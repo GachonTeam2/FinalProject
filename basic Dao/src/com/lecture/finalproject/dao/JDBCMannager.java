@@ -20,20 +20,16 @@ public class JDBCMannager {
     private static Logger logger = LoggerFactory.getLogger(JDBCMannager.class);
     
     public static Connection  connection = null;
-    
     public static synchronized Connection getInstance() {
 
-        if(connection == null) {
-            
-            try{
-           
+        if(connection == null) {        
+            try{       
             connection = (Connection)DriverManager.getConnection("jdbc:mysql://localhost:3306/finalproject","root","root");
             }catch(SQLException e){
                 logger.error(e.getMessage());
                 logger.error(e.getSQLState());
             }           
-        }
-        
+        }   
         return connection; 
     }
     
