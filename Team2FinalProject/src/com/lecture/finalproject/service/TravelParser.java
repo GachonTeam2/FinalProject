@@ -1,7 +1,4 @@
 package com.lecture.finalproject.service;
-
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +17,6 @@ import org.w3c.dom.Node;
 import com.lecture.finalproject.db.Travelpost_db;
 import com.lecture.finalproject.model.ModelLocation;
 import com.lecture.finalproject.model.ModelTravelPost;
-
 
 public class TravelParser {
     private static Logger logger = LoggerFactory.getLogger(TravelParser.class);
@@ -73,9 +69,7 @@ public class TravelParser {
                         tp_L.setCity1(token[0]);
                      
                     }
-               
-                    
-                }
+               }
                 
                 else if(node.getNodeName().equals("mapx")){
                     tp_L.setLatitude(node.getTextContent());
@@ -101,11 +95,6 @@ public class TravelParser {
                     tp_L.setLatitude(null);
                     System.out.println(tp_M.getTitle()+"("+no+")");
                 }
-                
-                
-                
-                
-                
             }
         }
         
