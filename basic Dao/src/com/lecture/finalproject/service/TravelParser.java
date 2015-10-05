@@ -14,7 +14,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 
-import com.lecture.finalproject.db.Travelpost_db;
+import com.lecture.finalproject.dao.Travelpost_db;
 import com.lecture.finalproject.model.ModelLocation;
 import com.lecture.finalproject.model.ModelTravelPost;
 
