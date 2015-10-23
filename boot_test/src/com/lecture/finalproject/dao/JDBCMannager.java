@@ -19,7 +19,7 @@ import com.mysql.jdbc.Connection;
 public class JDBCMannager {
     private static Logger logger = LoggerFactory.getLogger(JDBCMannager.class);
     
-    public static Connection  connection = null;
+    private static Connection  connection = null;
     
     public static synchronized Connection getInstance() {
 

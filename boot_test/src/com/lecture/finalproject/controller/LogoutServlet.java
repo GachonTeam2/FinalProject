@@ -1,61 +1,32 @@
 package com.lecture.finalproject.controller;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Properties;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MainController
+ * Servlet implementation class LogoutServlet
  */
-
-
-public class MainController extends HttpServlet {
+public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-	private static Map commandHandlerMap = new HashMap();
-	
-	
-	@Override
-	public void init() throws ServletException {
-		// TODO Auto-generated method stub
-		super.init();
-	}
-	
-	
-	
-    public MainController() {
+    public LogoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
-   
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	    
-	    processRequest(request,response);
-	    
-	    
-	   
-	    
+		processRequest(request,response);
 	}
 
 	/**
@@ -63,18 +34,14 @@ public class MainController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	    processRequest(request,response);
+		processRequest(request,response);
 	}
 	
 	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{  
-		
-		
-		
-		
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("/mainPage.jsp");
-	    dispatcher.forward(request, response);
-	    
+	{
+        request.getSession().invalidate();
+        response.sendRedirect(request.getContextPath()+ "/");
+    
 	}
 
 }

@@ -1,20 +1,22 @@
 package com.lecture.finalproject.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import twitter4j.IDs;
 import twitter4j.PagableResponseList;
+import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.User;
 
 public class ServiceTwitterParser{
 	
-	public ArrayList<User> getFriendsList(Twitter twitter) {
+	public List<User> getFriendsList(Twitter twitter) {
 		// TODO Auto-generated method stub
 		
-		ArrayList<User> listFriends = new ArrayList<User>();
+		List<User> listFriends = new ArrayList<User>();
 	
 		 try {
 	            // get friends
@@ -37,9 +39,9 @@ public class ServiceTwitterParser{
 		return listFriends;
 	}
 	 
-	public ArrayList<User> getFollowersList(Twitter twitter)
+	public List<User> getFollowersList(Twitter twitter)
 	{
-		ArrayList<User> listFollowers = new ArrayList<User>();
+		List<User> listFollowers = new ArrayList<User>();
 		
 		try {
 			long cursor = -1;
@@ -56,4 +58,27 @@ public class ServiceTwitterParser{
 		
 		return listFollowers;	
 	}
+
+	public List<String> getMyTimeline(Twitter twitter)
+	{
+		User user = null;
+		List<Status> list = null;
+		List<String> timelineList = new ArrayList<String>();
+		
+		try {
+			user = twitter.verifyCredentials();
+			list = twitter.getUserTimeline(); 		
+		} catch (TwitterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		System.out.println("타임라인 계정:"+user.getScreenName());
+		
+		for(Status status : list) {	
+			timelineList.add(status.getText());
+		}
+		return timelineList;
+	}
 }
+

@@ -35,7 +35,6 @@ public class Travelpost_db {
             logger.error("Database", e.getStackTrace());
         }
         
-        
     }
     
     public Connection getConnection() throws SQLException

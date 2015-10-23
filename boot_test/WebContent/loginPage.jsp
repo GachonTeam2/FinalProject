@@ -168,7 +168,7 @@
 		jQuery( document ).ready(function( $ ) {
 			
 			$(function(){
-				$('#loginBtn a').attr('href',path + "/my");
+				$('#loginBtn a').attr('href',path + "/main");
 				$('#loginBtn span').text('시작하기');
 				
 				

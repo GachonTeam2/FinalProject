@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
- 
- 
   <servlet>
     <servlet-name>ServletLogin</servlet-name>
     <servlet-class>login.controller.LoginController</servlet-class>
   </servlet>
-    <servlet>
+  <servlet>
     <servlet-name>ServletCallback</servlet-name>
     <servlet-class>login.controller.CallbackServlet</servlet-class>
   </servlet>
@@ -14,11 +12,10 @@
     <servlet-name>ServletLogout</servlet-name>
     <servlet-class>login.controller.LogoutServlet</servlet-class>
   </servlet>
-	<servlet>
-		<servlet-name>ServletSignin</servlet-name>
-		<servlet-class>login.controller.SigninServlet</servlet-class>
-	</servlet>
-  
+  <servlet>
+    <servlet-name>ServletSignin</servlet-name>
+    <servlet-class>login.controller.SigninServlet</servlet-class>
+  </servlet>
   <servlet>
     <servlet-name>ServletMain</servlet-name>
     <servlet-class>com.lecture.finalproject.controller.MainController</servlet-class>
@@ -39,9 +36,6 @@
     <servlet-name>ServletConcern</servlet-name>
     <servlet-class>com.lecture.finalproject.controller.ConcernRecommendController</servlet-class>
   </servlet>
-
-	
-	
   <servlet-mapping>
     <servlet-name>ServletLogin</servlet-name>
     <url-pattern>/</url-pattern>
@@ -54,14 +48,10 @@
     <servlet-name>ServletMy</servlet-name>
     <url-pattern>/my</url-pattern>
   </servlet-mapping>
-  
-  
   <servlet-mapping>
     <servlet-name>ServletWrite</servlet-name>
     <url-pattern>/write</url-pattern>
   </servlet-mapping>
-  
-  
   <servlet-mapping>
     <servlet-name>ServletDetail</servlet-name>
     <url-pattern>/detail</url-pattern>
@@ -78,10 +68,8 @@
     <servlet-name>ServletLogout</servlet-name>
     <url-pattern>/logout</url-pattern>
   </servlet-mapping>
-  
-   <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>ServletSignin</servlet-name>
     <url-pattern>/signin</url-pattern>
   </servlet-mapping>
-  
 </web-app>

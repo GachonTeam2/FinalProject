@@ -2,11 +2,13 @@ package com.lecture.finalproject.dao;
 
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.spi.LoggerFactory;
 import org.slf4j.Logger;
@@ -20,16 +22,111 @@ import com.lecture.finalproject.model.ModelInformation;
 import com.lecture.finalproject.model.ModelLocation;
 import com.lecture.finalproject.model.ModelPostFeatureTable;
 import com.lecture.finalproject.model.ModelTravelPost;
+import com.lecture.finalproject.model.ModelUser;
 
 
 public class DaoTravlePlace implements IDao{
     
   
-    public static Connection connection = JDBCMannager.getInstance();
+    private static Connection connection = JDBCMannager.getInstance();
    
     private Statement st = null;
     private ResultSet rs = null;
+    private PreparedStatement pstmt = null;
+    
+    @Override
+    public int updateSyncState(String user_id) {
+    	
+    	int result = 0;
+    	
+    	try{
+    		String query = "UPDATE user_tb SET sync=? where user_id =?";
+    		
+    		pstmt = connection.prepareStatement(query);
+    		pstmt.setInt(1, 1);
+    		pstmt.setString(2, user_id);
+    				
+    		result = pstmt.executeUpdate();
+    	}catch(SQLException e){
+    		System.out.println(e.getMessage());
+    	}
+    	
+    	return result;
+    }
+    
+    
+    @Override
+    public ModelUser getUserInfo(String user_id) {
+    	
+    	ModelUser result = null;
+    	
+    	try{
+    		String query = "select * from user_tb where user_id = '" + user_id + "'";
+    		
+    		st = connection.createStatement();
+    		rs = st.executeQuery(query);
+    		
+    		  while (rs.next()) {
+    			  result = new ModelUser(rs.getString("user_id"),rs.getString("name"),rs.getString("img_url"),rs.getBoolean("sync"));
+              }
+    		
+    	}catch(SQLException e){
+    		System.out.println(e.getMessage());
+    	}
+    	
+    	
+    	return result;
+    }
+    
+    @Override
+    public int insertUserInfo(ModelUser user) {
+    	// TODO Auto-generated method stub
+    	
+    	int result = 0;
+    	
+    	try{
+    		
+    		String query = "insert into user_tb value(?,?,?,?)";     // sql 쿼리
+    		pstmt = connection.prepareStatement(query);                          // prepareStatement에서 해당 sql을 미리 컴파일한다.
+    		pstmt.setString(1,user.getUser_id());
+    		pstmt.setString(2,user.getName());
+    		pstmt.setString(3,user.getImg_url());
+    		pstmt.setBoolean(4,user.isSync());
+    		
+    		result = pstmt.executeUpdate();
+    	
+    	}catch(SQLException e){
+    		System.out.println(e.getMessage());
+    	}
 
+    	return result;
+    }
+    
+    @Override
+    public int getUserCount(ModelUser user) {
+    	// TODO Auto-generated method stub
+    	
+    	int result = 0;
+    	
+    	try{
+    		String query = "select count(*) from user_tb where user_id = ?";
+    		
+    		pstmt = connection.prepareStatement(query);
+    		pstmt.setString(1, user.getUser_id());
+    		
+    		rs = pstmt.executeQuery();
+    		rs.next();
+    		result = rs.getInt(1);
+    		
+    	}catch(SQLException e){
+    		System.out.println(e.getMessage());
+    	}
+    		
+      	return result;
+      	
+    }
+    
+  
     @Override
     public List<ModelTravelPost> getTravelPostList(String user_id) {
         // TODO Auto-generated method stub
@@ -346,7 +443,29 @@ public class DaoTravlePlace implements IDao{
         }
     
         return result;
-        
     }
+	    
     
+	 @Override
+	public int insertConcern(ModelConcern concern) {
+		// TODO Auto-generated method stub
+		 
+		 int result = 0;
+		 
+		 try{
+			 String query = "insert into concern_tb values(?,?)";
+				 
+			 pstmt = connection.prepareStatement(query);
+			 pstmt.setString(1, concern.getInterest());
+			 pstmt.setString(2,concern.getUser_id());
+			 
+			 result = pstmt.executeUpdate();
+		
+		 }catch(SQLException e){
+			 System.out.println(e.getMessage());
+		 }
+		 
+		return result;
+	}
+	    
 }
