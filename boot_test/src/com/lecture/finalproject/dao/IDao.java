@@ -10,7 +10,6 @@ import com.lecture.finalproject.model.ModelHash;
 import com.lecture.finalproject.model.ModelImage;
 import com.lecture.finalproject.model.ModelInformation;
 import com.lecture.finalproject.model.ModelLocation;
-import com.lecture.finalproject.model.ModelPostFeatureTable;
 import com.lecture.finalproject.model.ModelTravelPost;
 import com.lecture.finalproject.model.ModelUser;
 
@@ -22,13 +21,15 @@ public interface IDao {
 	
 	public abstract int insertUserInfo(ModelUser user);
 	
-	public abstract int getUserCount(ModelUser user);
+	public abstract int getUserCount(String user_id);
 	
+	
+	//여행지 List, 여행지 하나 가져오기
     public abstract List<ModelTravelPost> getTravelPostList(String user_id);
+    public abstract ModelTravelPost getTravelPostOne(int travelPost_no);
+    
     
     public abstract ModelLocation getLocationOne(int travelPost_no);
-    
-    public abstract List<ModelPostFeatureTable> getPostFeatureTableList(int travelPost_no);
     
     public abstract List<ModelImage> getImageList(int travelPost_no);
     
@@ -36,7 +37,11 @@ public interface IDao {
     
     public abstract int getLikeCount(int travelPost_no);
     
+    
+    //여행지에 대한 설명 정보 
     public abstract List<ModelInformation> getInformationList(int travelPost_no);
+    public abstract ModelInformation getInformation(int travelPost_no);
+    
     
     public abstract List<ModelHash> getHashList(int travelPost_no);
     

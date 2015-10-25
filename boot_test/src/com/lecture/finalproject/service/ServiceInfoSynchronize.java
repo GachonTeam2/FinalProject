@@ -15,26 +15,13 @@ import twitter4j.User;
 
 public class ServiceInfoSynchronize {
 	
-	public boolean isExitst(ModelUser inputUser){
-		
-		int count = 0;	
-		
-		DaoTravlePlace checker = new DaoTravlePlace();	
-		count = checker.getUserCount(inputUser);
-		
-		if(count > 0)
-			return true;
-		
-		return false;
-	}
-	
 	public boolean isSynchronize(ModelUser inputUser){
 	
 		DaoTravlePlace checker = new DaoTravlePlace();	
 		return checker.getUserInfo(inputUser.getUser_id()).isSync();	
 	}
 	
-	public int synchronize(Twitter twitter){
+	public boolean synchronize(Twitter twitter){
 		
 		int result = 0;
 		int result1 = 0;
@@ -70,8 +57,9 @@ public class ServiceInfoSynchronize {
 		result = uploader.insertConcern(concern);
 		result1 = uploader.updateSyncState(Long.toString(user.getId()));
 		
-		return result * result1;
-		
+		if(result * result1 > 0)
+			return true;
+		return false;
 	}
 
 }

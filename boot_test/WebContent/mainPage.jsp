@@ -9,8 +9,9 @@
   <head>
     <title>Main page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"  />
+  
     <style type="text/css">
       body {
         padding-top: 20px;
@@ -274,6 +275,6 @@
     </div> 
 
     <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   </body>
 </html>

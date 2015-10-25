@@ -20,7 +20,6 @@ import com.lecture.finalproject.model.ModelHash;
 import com.lecture.finalproject.model.ModelImage;
 import com.lecture.finalproject.model.ModelInformation;
 import com.lecture.finalproject.model.ModelLocation;
-import com.lecture.finalproject.model.ModelPostFeatureTable;
 import com.lecture.finalproject.model.ModelTravelPost;
 import com.lecture.finalproject.model.ModelUser;
 
@@ -33,6 +32,52 @@ public class DaoTravlePlace implements IDao{
     private Statement st = null;
     private ResultSet rs = null;
     private PreparedStatement pstmt = null;
+    
+    @Override
+    public ModelTravelPost getTravelPostOne(int travelPost_no) {
+    	// TODO Auto-generated method stub
+    	ModelTravelPost result = null;
+    	
+    	try{
+    		String query = "select * from travelpost_tb where travelPost_no = ?";
+    		
+    		pstmt = connection.prepareStatement(query);
+    		pstmt.setInt(1, travelPost_no);
+    		
+			rs = pstmt.executeQuery();
+				
+    		while (rs.next()) {
+  			  result = new ModelTravelPost(rs.getInt("travelPost_no"), rs.getString("title"), rs.getString("travelPost_date"), rs.getInt("view_count"), rs.getString("user_id"));
+            }   			
+    	}catch(SQLException e){
+    		System.out.println(e.getMessage());
+    	}
+    	
+    	return result;
+    }
+    
+    @Override
+    public ModelInformation getInformation(int travelPost_no) {
+    	ModelInformation result = null;
+    	
+    	try{
+    		String query = "select * from information_tb where travelPost_no = ?";
+    		
+    		pstmt = connection.prepareStatement(query);
+    		pstmt.setInt(1, travelPost_no);
+    		
+    		rs = pstmt.executeQuery();
+    		
+    		while (rs.next()) {
+  			  result = new ModelInformation(rs.getString("travel_content"), rs.getInt("travelPost_no"));
+            }
+    		
+    	}catch(SQLException e){
+    		System.out.println(e.getMessage());
+    	}
+    	
+    	return result;
+    }
     
     @Override
     public int updateSyncState(String user_id) {
@@ -103,7 +148,7 @@ public class DaoTravlePlace implements IDao{
     }
     
     @Override
-    public int getUserCount(ModelUser user) {
+    public int getUserCount(String user_id) {
     	// TODO Auto-generated method stub
     	
     	int result = 0;
@@ -112,7 +157,7 @@ public class DaoTravlePlace implements IDao{
     		String query = "select count(*) from user_tb where user_id = ?";
     		
     		pstmt = connection.prepareStatement(query);
-    		pstmt.setString(1, user.getUser_id());
+    		pstmt.setString(1, user_id);
     		
     		rs = pstmt.executeQuery();
     		rs.next();
@@ -147,8 +192,7 @@ public class DaoTravlePlace implements IDao{
                 one.setTravelPost_no(rs.getInt("travelPost_no"));
                 one.setTitle(rs.getString("title"));
                 one.setTravelPost_date(rs.getString("travelPost_date"));
-                one.setView_count(rs.getInt("view_count"));
-                one.setLike_count(rs.getInt("like_count"));
+                one.setView_count(rs.getInt("view_count"));           
                 one.setUser_id(rs.getString("user_id"));
                 
                 result.add(one);
@@ -195,37 +239,7 @@ public class DaoTravlePlace implements IDao{
         
     }
     
-    @Override
-    public List<ModelPostFeatureTable> getPostFeatureTableList(int travelPost_no) {
-        // TODO Auto-generated method stub
-        
-        List<ModelPostFeatureTable> result = new ArrayList<ModelPostFeatureTable>();
-        
-        try {
-            String query = "select * from postfeaturetable_tb where travelPost_no = '" + travelPost_no + "';";
-            st = connection.createStatement();
-            rs =st.executeQuery(query);
-            
-            if(st.execute(query))
-                rs = st.getResultSet();
-              
-            while (rs.next()) {
-                ModelPostFeatureTable one  = new ModelPostFeatureTable();
-                
-                one.setTable_name(rs.getString("table_name"));
-                one.setTravelPost_no(rs.getInt("travelPost_no"));       
-                
-                result.add(one);
-            }
-          
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-   
-        }
-        return result;
-    }
-    
+
     @Override
     public List<ModelImage> getImageList(int travelPost_no) {
     
@@ -276,7 +290,8 @@ public class DaoTravlePlace implements IDao{
                 one.setComment_no(rs.getInt("comment_no"));
                 one.setCommentPost_date(rs.getString("commentPost_date"));
                 one.setContent(rs.getString("content"));
-                one.setUser_id(rs.getString("user_id"));                
+                one.setUser_id(rs.getString("user_id"));  
+                one.setImage_url(rs.getString("image_url"));
                 one.setTravelPost_no(rs.getInt("travelPost_no"));       
                 
                 result.add(one);

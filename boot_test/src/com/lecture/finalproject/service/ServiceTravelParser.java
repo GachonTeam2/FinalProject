@@ -26,15 +26,15 @@ public class ServiceTravelParser {
     int no=0;
     String[] token;
     int no_add=0;
+   
     private String make(String s)
     {
         return "'"+s+"'";
     }
+    
     public void Parser(){
         
         try{
-            
-            tp_db.Database();
             new ServiceTravelParser().start();
             
         }catch (Exception e){
@@ -45,7 +45,7 @@ public class ServiceTravelParser {
     
     private void start() throws Exception{
         
-        URL url = new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey=7vKWifdEnG3dyBZ2YSxA8ouVJFkoIhvF3jpUfIF7Av7d4mQopF%2B8BN9lXScuMQ4ejBY%2BlUR5fZMk64V1rvitLg%3D%3D &contentTypeId=&areaCode=&sigunguCode=&cat1=&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=A&numOfRows=24006&pageNo=1");
+        URL url = new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey=7vKWifdEnG3dyBZ2YSxA8ouVJFkoIhvF3jpUfIF7Av7d4mQopF%2B8BN9lXScuMQ4ejBY%2BlUR5fZMk64V1rvitLg%3D%3D &contentTypeId=&areaCode=&sigunguCode=&cat1=&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=A&numOfRows=20&pageNo=1");
         URLConnection connection = url.openConnection();
         
         Document doc = parseXML(connection.getInputStream());
@@ -86,7 +86,7 @@ public class ServiceTravelParser {
                     tp_M.setTitle(node.getTextContent());
                     
                     System.out.println(no);
-                    tp_db.insert("insert into travelpost_tb(travelPost_no,title,travelPost_date,view_count,like_count,user_id) values("+no+","+make(tp_M.getTitle())+","+"now(),"+"0,0,"+make("khyunm91")+")");
+                    tp_db.insert("insert into travelpost_tb(travelPost_no,title,travelPost_date,view_count,user_id) values("+no+","+make(tp_M.getTitle())+","+"now(),"+"0,"+make("khyunm91")+")");
                     tp_db.insert("insert into location_tb(city1,address,latitude,longitude,travelPost_no) values("+make(tp_L.getCity1())+","+make(tp_L.getAddress())+","+make(tp_L.getLatitude())+","+make(tp_L.getLongitude())+","+no+")");;
                     tp_L.setAddress(null);
                     tp_L.setCity1(null);

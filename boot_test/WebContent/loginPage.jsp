@@ -168,7 +168,7 @@
 		jQuery( document ).ready(function( $ ) {
 			
 			$(function(){
-				$('#loginBtn a').attr('href',path + "/main");
+				$('#loginBtn a').attr('href',path + "/synchronize_action");
 				$('#loginBtn span').text('시작하기');
 				
 				

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.lecture.finalproject.model.ModelUser;
+import com.lecture.finalproject.service.ServiceInfoSynchronize;
 import com.lecture.finalproject.service.ServiceTwitterParser;
 
 import twitter4j.Twitter;
@@ -18,14 +20,15 @@ import twitter4j.Twitter;
 /**
  * Servlet implementation class SNSprocessingController
  */
-@WebServlet("/getterinfo_action")
-public class GetterInfo_action extends HttpServlet {
+@WebServlet("/synchronize_action")
+
+public class Synchronize_action extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetterInfo_action() {
+    public Synchronize_action() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,18 +47,29 @@ public class GetterInfo_action extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		processRequest(request,response);
 	}
 	
 	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{  
-		HttpSession session = request.getSession();
-		Twitter twitter = (Twitter) session.getAttribute("twitter");
+		ModelUser user = (ModelUser) request.getSession().getAttribute("userObject"); //user가 있는지 없는지로 회원/비회원 구분
+		ServiceInfoSynchronize synchronizer = new ServiceInfoSynchronize();
+		String nextUrl = null;
+			
+		if(user != null) //회원 로그인
+			if(!(synchronizer.isSynchronize(user))){//동기화 안되이으면
+				Twitter twitter = (Twitter) request.getSession().getAttribute("twitter");	
+				
+				if(synchronizer.synchronize(twitter))
+					nextUrl = "/main";
+				else
+					nextUrl = "/error";
+			}else
+				nextUrl = "/main";
+		else
+			nextUrl = "/main";
 		
-		ServiceTwitterParser one = new ServiceTwitterParser();
-		
-		List<String> test = one.getMyTimeline(twitter);
-		    
-		response.sendRedirect("/main");
+		response.sendRedirect(request.getContextPath() + nextUrl);
 	    
 	}
 

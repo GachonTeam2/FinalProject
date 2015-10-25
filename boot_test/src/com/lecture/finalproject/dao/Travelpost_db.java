@@ -13,33 +13,12 @@ public class Travelpost_db {
     private static Logger logger = LoggerFactory.getLogger(Travelpost_db.class);
     ModelTravelPost tp = new ModelTravelPost();
     
-    private Connection con;
+    private Connection con = JDBCMannager.getInstance();
     private Statement stmt;
-    private String driver ="com.mysql.jdbc.Driver";
-    private String url="jdbc:mysql://localhost:3306/finalproject";
-    private String id = "root";
-    private String passwd="1313";
-    
-    public void Database() 
-    {
-        try {
-            Class.forName(driver);
-            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/finalproject","root","1313");
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            logger.error("Database", e.getStackTrace());
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            logger.error("Database", e.getStackTrace());
-        }
-        
-    }
-    
+
+     
     public Connection getConnection() throws SQLException
     {
-        Connection con = (Connection)DriverManager.getConnection(url,id,passwd);
         return con;
     }
     

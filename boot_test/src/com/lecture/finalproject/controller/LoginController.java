@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.lecture.finalproject.dao.DaoTravlePlace;
+import com.lecture.finalproject.model.ModelUser;
+import com.lecture.finalproject.service.ServiceLogin;
 import com.lecture.finalproject.service.ServiceTwitterParser;
 
 import twitter4j.Twitter;
@@ -26,6 +29,7 @@ import twitter4j.conf.ConfigurationBuilder;
  */
 
 
+@WebServlet("/")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	final String CONSUMER_KEY = "GEz4eKsuI0sm86utoDsEOsBak"; //APP등록후받은consumer key
@@ -70,19 +74,23 @@ public class LoginController extends HttpServlet {
 		if(isLogin)
 		{
 			Twitter twitter = (Twitter) request.getSession().getAttribute("twitter");
-			 
-			try {
-				 user = twitter.verifyCredentials();
-			} catch (TwitterException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			ServiceLogin loger = new ServiceLogin();
+			ModelUser inputUser = new ModelUser();
 			
+			user = loger.getTwitterUser(twitter);
+		
+			if(!(loger.isExistMember(Long.toString(user.getId())))){
+				inputUser = loger.getNewEnrollUser(user);
+			}else{
+				inputUser = loger.getAlreadyEnrollUser(user);
+			}
+					
 			request.setAttribute("isLogin", "1");
 			request.setAttribute("name", user.getName());
 			request.setAttribute("imageUrl", user.getProfileImageURL());	
 			
-			session.setAttribute("twitterUser", user);			
+			session.setAttribute("twitterUser", user);		
+			session.setAttribute("userObject", inputUser);
 		}
 		
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("/loginPage.jsp");

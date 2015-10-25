@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import="java.io.*" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="javax.servlet.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="javax.servlet.http.*" %>
@@ -9,7 +10,7 @@
   <head>
     <title>Detail Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
     <style type="text/css">
         body {
@@ -110,16 +111,23 @@
             <br>
             <div class="raw-fluid">
                 <div class="jumbotron">
-                    <h1>Title</h1>
+                    <h1>${travlePost.title}</h1>
                 </div>
             </div>
             
             <div class="container">
                 <div class="bpicture">
-                    <img src="img/20140314-IMG_7974.jpg" class="img-polaroid">          
-                </div>
+				<c:forEach items="${imageList}" var="imgEntry">
+					<br><img src="${imgEntry.image_url}"/><br>
+				</c:forEach>
+			</div>
                 <div class="bpicture">
-                    <br>Eungbongsan (Seoul) is a mountain of South Korea. It has an elevation of 81 metres<br><br>
+                
+                <c:forEach items="${informationList}" var="informationEntry">
+					<br>${informationEntry.travel_content}<br><Br>
+				</c:forEach>
+				
+				<br><br><br>
                 </div>
             </div>
 
@@ -130,8 +138,8 @@
                     </div>
                     <div class="span2 pull-right">
                         <dl>
-                            <dt>User ID</dt>
-                            <dd>User Introduction</dd>
+                            <dt>${wrtier.user_id}</dt>
+                            <dd><img src="${writer.img_url}"/></dd>
                         </dl>
                     </div>
                     <div class="span1 pull-right">
@@ -191,7 +199,7 @@
             </div>
         </div>
     <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
   </body>
 </html>

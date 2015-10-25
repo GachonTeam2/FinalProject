@@ -9,8 +9,8 @@
     <head>
         <title>Write page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet"/>
         <style type="text/css">
             body {
             padding-top: 20px;
