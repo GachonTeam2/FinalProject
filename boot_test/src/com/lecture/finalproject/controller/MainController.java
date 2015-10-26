@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.lecture.finalproject.model.ModelUser;
 import com.lecture.finalproject.service.ServiceInfoSynchronize;
 
+import boot.RegisterBean;
 import twitter4j.Twitter;
 import twitter4j.User;
 
@@ -72,9 +73,12 @@ public class MainController extends HttpServlet {
 	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{  
 	
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("/mainPage.jsp");
+	    RegisterBean collector = new RegisterBean();
+		request.setAttribute("title", collector.getTitle());
+		request.setAttribute("firstimage", collector.getFirstimage());
+		request.setAttribute("addr1", collector.getAddr1());
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("/mainpage.jsp");
 	    dispatcher.forward(request, response);
-	    
 	}
 
 }
