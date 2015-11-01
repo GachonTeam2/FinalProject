@@ -1,11 +1,10 @@
 package com.lecture.finalproject.controller;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,10 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.lecture.finalproject.dao.InsertDataDAO;
 import com.lecture.finalproject.dao.JDBCMannager;
-import com.lecture.finalproject.model.ModelComment;
 import com.lecture.finalproject.service.ServiceGetDetailInfo;
-import com.mysql.jdbc.Connection;
 
 /**
  * Servlet implementation class GetDetailInfo_action
@@ -26,11 +24,12 @@ import com.mysql.jdbc.Connection;
 public class Detail_action extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	ModelComment mc = new ModelComment();
-	Connection connection = JDBCMannager.getInstance();
-    Statement st = null;
-    ResultSet rs = null;
-    PreparedStatement pstmt = null;
+	InsertDataDAO InsertDataDao = new InsertDataDAO();
+	
+	Connection con;
+	Statement stmt;
+	ResultSet res;
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -56,34 +55,14 @@ public class Detail_action extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		//Vector<ModelComment> vlist = new Vector<ModelComment>();
-		try {
-			String sql = "insert into comment_tb(comment_no, commentPost_date, content, user_id, image_url, travelPost_no) values(?,now(),?,?,?,?)";
-			
-			pstmt = connection.prepareStatement(sql);
-			pstmt.setInt(1, mc.getComment_no());
-			pstmt.setString(2, mc.getCommentPost_date());
-			pstmt.setString(3, mc.getContent());
-			pstmt.setString(4, mc.getUser_id());
-			pstmt.setString(5, mc.getImage_url());
-			pstmt.setInt(6, mc.getTravelPost_no());
-			
-			pstmt.executeUpdate();
-			
-			rs.close();
-			pstmt.close();
-			connection.close();
-			
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		
+				
 		processRequest(request, response);
 	}
 
 	private void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		
 		String postNum = request.getParameter("travlePostNumber");
 		ServiceGetDetailInfo collector = new ServiceGetDetailInfo();
 
@@ -96,8 +75,26 @@ public class Detail_action extends HttpServlet {
 		request.setAttribute("travlePost", collector.getTravlePost(Integer.parseInt(postNum)));
 		request.setAttribute("writer", collector.getWriter(Integer.parseInt(postNum)));
 		
+		//Vector<ModelComment> vlist = new Vector<ModelComment>();
+		try {
+			con = JDBCMannager.getInstance();
+			stmt=con.createStatement();
+			int comment_no = Integer.parseInt(request.getParameter("0"));
+			String commentPost_date = request.getParameter("0");
+			String commentId = request.getParameter("commentId");
+			String commentContent = request.getParameter("commentInput");
+			String commentImage = request.getParameter("commentImage");
+			int pNum = Integer.parseInt(postNum);
+
+			String query = "insert into comment_tb(comment_no, commentPost_date, content, user_id, image_url, travelPost_no) values(0,now(),"+commentId+","+commentContent+","+commentImage+","+pNum+")";
+			stmt.executeQuery(query);
+			
+		} catch (SQLException e) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/detailPage.jsp");
+			dispatcher.forward(request, response);
+			System.out.println(e.getMessage());
+		}
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/detailPage.jsp");
-		dispatcher.forward(request, response);
+		
 	}
 }
