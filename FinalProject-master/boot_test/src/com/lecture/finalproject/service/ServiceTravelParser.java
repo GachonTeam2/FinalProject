@@ -15,6 +15,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 
 import com.lecture.finalproject.dao.Travelpost_db;
+import com.lecture.finalproject.model.ModelImage;
 import com.lecture.finalproject.model.ModelLocation;
 import com.lecture.finalproject.model.ModelTravelPost;
 
@@ -23,13 +24,14 @@ public class ServiceTravelParser {
     public Travelpost_db tp_db = new Travelpost_db();
     public ModelTravelPost tp_M =new ModelTravelPost();
     public ModelLocation tp_L = new ModelLocation();
+    public ModelImage img = new ModelImage();
     int no=0;
     String[] token;
     int no_add=0;
    
     private String make(String s)
     {
-        return "'"+s+"'"; 
+        return "'"+s+"'";
     }
     
     public void Parser(){
@@ -53,7 +55,7 @@ public class ServiceTravelParser {
         
         for(int i=0; i<descNodes.getLength();i++){
             
-            for(Node node = descNodes.item(i).getFirstChild(); node!=null; node=node.getNextSibling()){ //ì²«ë²ˆì§¸ ìžì‹ì„ ì‹œìž‘ìœ¼ë¡œ ë§ˆì§€ë§‰ê¹Œì§€ ë‹¤ìŒ í˜•ì œë¥¼ ì‹¤í–‰
+            for(Node node = descNodes.item(i).getFirstChild(); node!=null; node=node.getNextSibling()){ //Ã¹¹øÂ° ÀÚ½ÄÀ» ½ÃÀÛÀ¸·Î ¸¶Áö¸·±îÁö ´ÙÀ½ ÇüÁ¦¸¦ ½ÇÇà
                 
                 
                 if(node.getNodeName().equals("addr1"))
@@ -71,6 +73,10 @@ public class ServiceTravelParser {
                     }
                }
                 
+                else if(node.getNodeName().equals("firstimage")){
+                	img.setImage_url(node.getTextContent());
+                }
+                
                 else if(node.getNodeName().equals("mapx")){
                     tp_L.setLatitude(node.getTextContent());
                     
@@ -86,13 +92,15 @@ public class ServiceTravelParser {
                     tp_M.setTitle(node.getTextContent());
                     
                     System.out.println(no);
-                    tp_db.insert("insert into travelpost_tb(travelPost_no,title,travelPost_date,view_count,like_count,comment_count,user_id) values("+no+","+make(tp_M.getTitle())+","+"now(),"+"0,0,0,"+make("khyunm91")+")");
+                    tp_db.insert("insert into travelpost_tb(travelPost_no,title,travelPost_date,view_count,user_id) values("+no+","+make(tp_M.getTitle())+","+"now(),"+"0,"+make("khyunm91")+")");
                     tp_db.insert("insert into location_tb(city1,address,latitude,longitude,travelPost_no) values("+make(tp_L.getCity1())+","+make(tp_L.getAddress())+","+make(tp_L.getLatitude())+","+make(tp_L.getLongitude())+","+no+")");;
+                    tp_db.insert("insert into image_tb(image_url, travelpost_no) values("+make(img.getImage_url())+","+no+")");
                     tp_L.setAddress(null);
                     tp_L.setCity1(null);
                     tp_L.setCity2(null);
                     tp_L.setLongitude(null);
                     tp_L.setLatitude(null);
+                    img.setImage_url(null);
                     System.out.println(tp_M.getTitle()+"("+no+")");
                 }
             }

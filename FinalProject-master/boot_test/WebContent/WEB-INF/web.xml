@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  
   <servlet>
     <servlet-name>ServletCallback</servlet-name>
     <servlet-class>com.lecture.finalproject.controller.CallbackServlet</servlet-class>
@@ -12,16 +13,18 @@
     <servlet-name>ServletSignin</servlet-name>
     <servlet-class>com.lecture.finalproject.controller.SigninServlet</servlet-class>
   </servlet>
-
   <servlet>
     <servlet-name>ServletWrite</servlet-name>
-    <servlet-class>com.lecture.finalproject.controller.WriteController</servlet-class>
+    <servlet-class>com.lecture.finalproject.service.WriteController</servlet-class>
+  </servlet>
+   <servlet>
+    <servlet-name>ServletWritePage</servlet-name>
+    <servlet-class>com.lecture.finalproject.service.ServiceWritePage</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>ServletConcern</servlet-name>
     <servlet-class>com.lecture.finalproject.controller.ConcernRecommendController</servlet-class>
   </servlet>
-
   <servlet-mapping>
     <servlet-name>ServletWrite</servlet-name>
     <url-pattern>/write</url-pattern>
@@ -50,24 +53,22 @@
     <servlet-name>default</servlet-name>
     <url-pattern>*.js</url-pattern>
   </servlet-mapping>
-   <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>*.png</url-pattern>
   </servlet-mapping>
-  
   <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>*.jpg</url-pattern>
   </servlet-mapping>
-  
-      <filter>
+  <filter>
     <filter-name>setCharacterEncodingFilter</filter-name>
     <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
     <init-param>
-        <param-name>encoding</param-name>
-        <param-value>UTF-8</param-value>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
     </init-param>
-</filter>
-
-
+  </filter>
+  
+  
 </web-app>
