@@ -49,11 +49,11 @@ public class ServiceTravelParser {
         URLConnection connection = url.openConnection();
         
         Document doc = parseXML(connection.getInputStream());
-        NodeList descNodes = doc.getElementsByTagName("item");
+        NodeList descNodes = doc.getElementsByTagName("item");	
         
         for(int i=0; i<descNodes.getLength();i++){
             
-            for(Node node = descNodes.item(i).getFirstChild(); node!=null; node=node.getNextSibling()){ //첫번째 자식을 시작으로 마지막까지 다음 형제를 실행
+            for(Node node = descNodes.item(i).getFirstChild(); node!=null; node=node.getNextSibling()){ //泥ル쾲吏� �옄�떇�쓣 �떆�옉�쑝濡� 留덉�留됯퉴吏� �떎�쓬 �삎�젣瑜� �떎�뻾
                 
                 
                 if(node.getNodeName().equals("addr1"))
@@ -86,7 +86,8 @@ public class ServiceTravelParser {
                     tp_M.setTitle(node.getTextContent());
                     
                     System.out.println(no);
-                    tp_db.insert("insert into travelpost_tb(travelPost_no,title,travelPost_date,view_count,user_id) values("+no+","+make(tp_M.getTitle())+","+"now(),"+"0,"+make("khyunm91")+")");
+                    String query = "insert into travelpost_tb(title,travelPost_data,view_count,user_id) values(" + make(tp_M.getTitle())+",now(),0,'khyunm91');";
+                    tp_db.insert(query);
                     tp_db.insert("insert into location_tb(city1,address,latitude,longitude,travelPost_no) values("+make(tp_L.getCity1())+","+make(tp_L.getAddress())+","+make(tp_L.getLatitude())+","+make(tp_L.getLongitude())+","+no+")");;
                     tp_L.setAddress(null);
                     tp_L.setCity1(null);

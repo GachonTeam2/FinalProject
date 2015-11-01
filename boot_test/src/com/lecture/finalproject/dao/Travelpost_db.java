@@ -38,7 +38,7 @@ public class Travelpost_db {
     public void insert(String sql)
     {
         try{
-            stmt =getConnection().createStatement();
+            stmt=getConnection().createStatement();
             stmt.execute(sql);
         }
         catch(SQLException e){

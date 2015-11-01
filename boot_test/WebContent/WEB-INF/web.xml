@@ -5,6 +5,14 @@
     <servlet-class>com.lecture.finalproject.controller.CallbackServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>ServletDetail</servlet-name>
+    <servlet-class>com.lecture.finalproject.controller.Detail_action</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ServletDetail_test</servlet-name>
+    <servlet-class>com.lecture.finalproject.controller.Detailcontroller</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>ServletLogout</servlet-name>
     <servlet-class>com.lecture.finalproject.controller.LogoutServlet</servlet-class>
   </servlet>
@@ -47,5 +55,9 @@
   <servlet-mapping>
     <servlet-name>ServletSignin</servlet-name>
     <url-pattern>/signin</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ServletDetail_test</servlet-name>
+    <url-pattern>/detailcontroller</url-pattern>
   </servlet-mapping>
 </web-app>

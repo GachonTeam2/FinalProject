@@ -131,8 +131,8 @@ public class DaoTravlePlace implements IDao{
     	
     	try{
     		
-    		String query = "insert into user_tb value(?,?,?,?)";     // sql 쿼리
-    		pstmt = connection.prepareStatement(query);                          // prepareStatement에서 해당 sql을 미리 컴파일한다.
+    		String query = "insert into user_tb value(?,?,?,?)";     // sql 荑쇰━
+    		pstmt = connection.prepareStatement(query);                          // prepareStatement�뿉�꽌 �빐�떦 sql�쓣 誘몃━ 而댄뙆�씪�븳�떎.
     		pstmt.setString(1,user.getUser_id());
     		pstmt.setString(2,user.getName());
     		pstmt.setString(3,user.getImg_url());
@@ -482,5 +482,4 @@ public class DaoTravlePlace implements IDao{
 		 
 		return result;
 	}
-	    
 }

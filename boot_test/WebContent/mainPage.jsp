@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.io.*"%>
 <%@ page import="javax.servlet.*"%>
-<%@ page import="java.util.*, boot.*"%>
+<%@ page import="java.util.*"%>
 <%@ page import="javax.servlet.http.*"%>
 <%@ page import="java.sql.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -10,7 +10,6 @@
 <head>
 <title>Main page</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/bootstrap-responsive.css" rel="stylesheet">
 <style type="text/css">
@@ -130,6 +129,14 @@ body {
 	border-right: 0;
 	border-radius: 0 3px 3px 0;
 }
+.slide_box{
+	width:400px;
+	height:100%;
+	position:fixed;
+	top:0;
+	left:-400px;
+	background:#82bc00;
+}
 </style>
 </head>
 
@@ -141,7 +148,7 @@ body {
 				<div class="navbar-inner navbar-fixed-top">
 					<div class="container">
 						<ul class="nav">
-							<li><a href="#"><i class="icon-search"></i>Search</a></li>
+							<li><label for="slide"></label><i class="icon-search"></i>Search</a></label></li>
 							<li><a href="mainpage.jsp"><i class="icon-home"></i></a></li>
 							<li><a href="concernRecommendPage.jsp"><i
 									class="icon-star"></i></a></li>

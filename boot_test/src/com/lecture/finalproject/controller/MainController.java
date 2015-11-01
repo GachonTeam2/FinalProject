@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.lecture.finalproject.model.ModelUser;
 import com.lecture.finalproject.service.ServiceInfoSynchronize;
 
-import boot.RegisterBean;
 import twitter4j.Twitter;
 import twitter4j.User;
 

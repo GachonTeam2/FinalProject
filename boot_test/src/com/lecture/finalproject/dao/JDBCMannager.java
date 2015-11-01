@@ -21,7 +21,7 @@ public class JDBCMannager {
     
     private static Connection  connection = null;
     
-    private JDBCMannager(){};
+    public JDBCMannager(){};
     
     public static synchronized Connection getInstance() {
 
@@ -29,9 +29,9 @@ public class JDBCMannager {
        
         	try{
         		Class.forName("com.mysql.jdbc.Driver");
-        		connection = (Connection)DriverManager.getConnection("jdbc:mysql://localhost:3306/finalproject?useUnicode=yes&amp;characterEncoding=UTF-8&amp;autoReconnect=true","root","root");
+        		connection = (Connection)DriverManager.getConnection("jdbc:mysql://localhost/finalproject?useUnicode=yes&amp;characterEncoding=UTF-8&amp;autoReconnect=true","root","root");
         	}catch (ClassNotFoundException e) {
-        		System.out.println("드라이버를 찾을수없습니다 : "+e);
+        		System.out.println("�뱶�씪�씠踰꾨�� 李얠쓣�닔�뾾�뒿�땲�떎 : "+e);
         	}
     		catch(SQLException e){
     			logger.error(e.getMessage());
