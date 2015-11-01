@@ -208,7 +208,7 @@ body {
 		<hr>
 
 		<form name="comment"
-			action="com.lecture.finalproject.controller/Detailcontroller.java"
+			action="com.lecture.finalproject.controller/Detail_action.java"
 			method="post">
 			<div class="container">
 				<div class="raw-fluid">
