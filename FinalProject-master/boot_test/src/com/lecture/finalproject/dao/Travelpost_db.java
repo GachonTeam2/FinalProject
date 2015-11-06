@@ -14,9 +14,10 @@ public class Travelpost_db {
     ModelTravelPost tp = new ModelTravelPost();
     
     private Connection con = JDBCMannager.getInstance();
-    private Statement stmt;
-
-     
+    private Statement stmt = null;
+    private ResultSet rs = null;
+    private PreparedStatement pstmt = null;
+    private int result;
     public Connection getConnection() throws SQLException
     {
         return con;
@@ -46,6 +47,30 @@ public class Travelpost_db {
             System.out.println("error/inser");
         }
     }
+    
+    public int findTravelPost_no(String title)
+    {
+    	 try{
+    		 String query = "select travelpost_no from travelpost_tb where title ="+"'"+title+"'";
+    		 pstmt = con.prepareStatement(query);
+     			rs = pstmt.executeQuery();
+     			
+     			while(rs.next())
+     			{
+     				result = rs.getInt("travelPost_no");
+     			}
+     			
+     			
+    	 }
+         catch(SQLException e){
+             e.printStackTrace();
+             System.out.println("error/inser");
+         }
+    	 
+    	 return result;
+     }
+    	
+    
     
 }
 

@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Travle recommend</title>
+    <title>travel recommend</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="http://ironsummitmedia.github.io/startbootstrap-landing-page/css/bootstrap.min.css" rel="stylesheet">
@@ -49,7 +49,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand topnav" href="#">Real Travle</a>
+                <a class="navbar-brand topnav" href="#">Real travel</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -73,7 +73,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-message">
-                        <h1>Travle Recommend </h1>
+                        <h1>Travel Recommend </h1>
                         <h3>여러분에게 딱 맞는 여행지를 찾아보세요</h3>
                         <hr class="intro-divider">
                         <ul  class="list-inline intro-social-buttons">      

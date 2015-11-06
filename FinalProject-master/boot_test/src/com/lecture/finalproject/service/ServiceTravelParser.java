@@ -55,7 +55,7 @@ public class ServiceTravelParser {
         
         for(int i=0; i<descNodes.getLength();i++){
             
-            for(Node node = descNodes.item(i).getFirstChild(); node!=null; node=node.getNextSibling()){ //ì²«ë²ˆì§¸ ìžì‹ì„ ì‹œìž‘ìœ¼ë¡œ ë§ˆì§€ë§‰ê¹Œì§€ ë‹¤ìŒ í˜•ì œë¥¼ ì‹¤í–‰
+            for(Node node = descNodes.item(i).getFirstChild(); node!=null; node=node.getNextSibling()){ //Ã¹¹øÂ° ÀÚ½ÄÀ» ½ÃÀÛÀ¸·Î ¸¶Áö¸·±îÁö ´ÙÀ½ ÇüÁ¦¸¦ ½ÇÇà
                 
                 
                 if(node.getNodeName().equals("addr1"))
@@ -74,7 +74,11 @@ public class ServiceTravelParser {
                }
                 
                 else if(node.getNodeName().equals("firstimage")){
+<<<<<<< HEAD
                    img.setImage_url(node.getTextContent());
+=======
+                	img.setImage_url(node.getTextContent());
+>>>>>>> aad21aa0336b0f29092131286fcc317afd057a04
                 }
                 
                 else if(node.getNodeName().equals("mapx")){
