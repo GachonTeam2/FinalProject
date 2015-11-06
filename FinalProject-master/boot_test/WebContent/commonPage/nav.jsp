@@ -13,16 +13,21 @@
 			<div class="navbar-inner navbar-fixed-top">
 				<div class="container">
 					<ul class="nav">
-						<li><a href="#"><i class="icon-search"></i>Search</a></li>
-						<li><a href="${pageContext.request.contextPath}/mainPage.jsp"><i
+						<li><a href="#"><i class="icon-search"></i>Search</a>
+							<form action="${pageContext.request.contextPath}/concern" method="get">
+								<input type="text" name="searchWord">
+								<input type="submit" value="search">
+							</form>
+						
+						</li>
+						<li><a href="${pageContext.request.contextPath}/main"><i
 								class="icon-home"></i>Main</a></li>
 						<li><a
-							href="${pageContext.request.contextPath}/concernRecommendPage.jsp"><i
+							href="${pageContext.request.contextPath}/concern"><i
 								class="icon-star"></i>Concern</a></li>
 						<li><a
-							href="${pageContext.request.contextPath}/detailPage.jsp">SCABTRS</a></li>
-						<li><a href="${pageContext.request.contextPath}/my"><i
-								class="icon-user"></i>MyPage</a></li>
+							href="${pageContext.request.contextPath}/main">Real Travel</a></li>
+						<li><a href="${pageContext.request.contextPath}/my"><i class="icon-user"></i>MyPage</a></li>
 						<li><a
 							href="${pageContext.request.contextPath}/writePage.jsp"><i
 								class="icon-pencil"></i>WritePage</a></li>
@@ -32,5 +37,6 @@
 				</div>
 			</div>
 		</div>
+
 </body>
 </html>

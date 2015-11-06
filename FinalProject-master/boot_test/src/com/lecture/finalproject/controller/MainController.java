@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -18,8 +19,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.lecture.finalproject.dao.DaoTravlePlace;
+import com.lecture.finalproject.model.ModelImage;
 import com.lecture.finalproject.model.ModelUser;
 import com.lecture.finalproject.service.ServiceInfoSynchronize;
+import com.lecture.finalproject.service.pagingHelper;
 
 import twitter4j.Twitter;
 import twitter4j.User;
@@ -71,11 +75,18 @@ public class MainController extends HttpServlet {
 	
 	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{  
-	
-	    RegisterBean collector = new RegisterBean();
-		request.setAttribute("title", collector.getTitle());
-		request.setAttribute("firstimage", collector.getFirstimage());
-		request.setAttribute("addr1", collector.getAddr1());
+		DaoTravlePlace db = new DaoTravlePlace();
+		List<ModelImage> topPost = db.getPopularLocationImage(5);
+		int totalCount = db.getTravelPostCount();
+		
+		pagingHelper pager = new pagingHelper();
+        pager.setPageNo(1);
+        pager.setPageSize(10);	
+        pager.setTotalCount(totalCount);
+        
+   
+		request.setAttribute("topPost", topPost);
+		request.setAttribute("paging", pager);
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("/mainPage.jsp");
 	    dispatcher.forward(request, response);
 	}

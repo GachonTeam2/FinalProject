@@ -12,23 +12,14 @@
     <servlet-name>ServletSignin</servlet-name>
     <servlet-class>com.lecture.finalproject.controller.SigninServlet</servlet-class>
   </servlet>
-
   <servlet>
     <servlet-name>ServletWrite</servlet-name>
     <servlet-class>com.lecture.finalproject.controller.WriteController</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>ServletConcern</servlet-name>
-    <servlet-class>com.lecture.finalproject.controller.ConcernRecommendController</servlet-class>
   </servlet>
 
   <servlet-mapping>
     <servlet-name>ServletWrite</servlet-name>
     <url-pattern>/write</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>ServletConcern</servlet-name>
-    <url-pattern>/concern</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>ServletCallback</servlet-name>
@@ -50,24 +41,22 @@
     <servlet-name>default</servlet-name>
     <url-pattern>*.js</url-pattern>
   </servlet-mapping>
-   <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>*.png</url-pattern>
   </servlet-mapping>
-  
   <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>*.jpg</url-pattern>
   </servlet-mapping>
-  
-      <filter>
+  <filter>
     <filter-name>setCharacterEncodingFilter</filter-name>
     <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
     <init-param>
-        <param-name>encoding</param-name>
-        <param-value>UTF-8</param-value>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
     </init-param>
-</filter>
+  </filter>
 
 
 </web-app>

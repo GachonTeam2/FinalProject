@@ -9,6 +9,7 @@ import org.junit.Test;
 import com.lecture.finalproject.dao.DaoTravlePlace;
 import com.lecture.finalproject.model.ModelConcern;
 import com.lecture.finalproject.model.ModelFrontTravlePost;
+import com.lecture.finalproject.model.ModelImage;
 import com.lecture.finalproject.model.ModelInformation;
 import com.lecture.finalproject.model.ModelTravelPost;
 
@@ -17,12 +18,11 @@ public class DaoTravlePlaceTest {
 	@Test
 	public void test() {
 		DaoTravlePlace one = new DaoTravlePlace();
-		int count = 0;
 		List<ModelFrontTravlePost> result = null;
+		String location[] = {"전라"};
 		
-		result = one.getFrontTravlePostList();
+		result = one.getFrontTravlePostListByLocation(location, 1, 10);
 				
-		
 		System.out.println(result);
 		
 	}

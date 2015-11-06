@@ -4,6 +4,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="javax.servlet.http.*" %>
 <%@ page import="com.lecture.finalproject.model.ModelFrontTravlePost" %>
+<%@ page import="com.lecture.finalproject.model.ModelConcern" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
@@ -86,7 +87,7 @@
                 </div>
                 <!-- modal on/off -->
                 <div class="span2 pull-right"><br>
-                    <a href="#myModal" role="button" class="btn" data-toggle="modal"><i class="icon-user"></i> Add frieds</a>
+                    <a href="#myModal" role="button" class="btn" data-toggle="modal" id="showFriendBtn"><i class="icon-user"></i> Add friends</a>
                 </div>
             
             </div>
@@ -100,24 +101,20 @@
                     </div>
                     <div id="collapseOne" class="accordion-body collapse">
                         <div class="accordion-inner raw-fluid">     
-                            <div class="span2">
-                                <input type="checkbox" name=location value="seoul"> Seoul
+                        <%
+                        	List<ModelConcern> concerns = (List<ModelConcern>)request.getAttribute("concerns");
+                        
+                        	for(int i=0; i<concerns.size(); i++){
+                        		ModelConcern concern = concerns.get(i);
+   		
+                        %>
+                         	<div class="span2">
+                                <input type="button" name=concern value="<%=concern.getInterest()%>">
                             </div>
-                            <div class="span2">
-                                <input type="checkbox" name=location value="seoul"> Kyonggi
-                            </div>
-                            <div class="span2">
-                                <input type="checkbox" name=location value="seoul"> Chungcheong
-                            </div>
-                            <div class="span2">
-                                <input type="checkbox" name=location value="seoul"> Gyeongsang
-                            </div>
-                            <div class="span2">
-                                <input type="checkbox" name=location value="seoul"> Gangwon
-                            </div>
-                            <div class="span2">
-                                <input type="checkbox" name=location value="seoul"> Jeolla
-                            </div>
+
+						<%
+							}
+						%>				
                         </div>
                     </div>
                 </div>
@@ -161,10 +158,11 @@
         <!-- modal -->
         <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-header">
-                <h3 id="myModalLabel">Add frieds</h3>
+                <h3 id="myModalLabel">Add friends</h3>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" >
                 <p>friends list</p>
+                	<div id="friendListMenu"></div>
             </div>
             <div class="modal-footer">
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -174,5 +172,18 @@
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/myPage.js"></script>
+    <script src="${pageContext.request.contextPath}/js/paging.js"></script>
+   
+    <script type="text/javascript">
+	 
+			var user_img = '<%=(String)request.getAttribute("userImage")%>';
+			var userName = '<%=(String)request.getAttribute("userName")%>';
+			
+		if(user_img !== "" && userName !== ""){
+			$("#my_img").attr("src",user_img);
+			$("#my_name").empty().text(userName);
+		}
+    
+    </script>
     </body>
 </html>

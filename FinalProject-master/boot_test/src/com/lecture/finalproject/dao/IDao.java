@@ -24,15 +24,20 @@ public interface IDao {
 	
 	public abstract int getUserCount(String user_id);
 	
-	
+	public abstract int getTravelPostCount();
 	//front Travle List 가져오기
-	public abstract List<ModelFrontTravlePost> getFrontTravlePostList();
+	public abstract List<ModelFrontTravlePost> getFrontTravlePostList(int startPage, int pageNum);
 	//front Travle List 위치기반
-	public abstract List<ModelFrontTravlePost> getFrontTravlePostListByLocation(String[] location);
+	public abstract List<ModelFrontTravlePost> getFrontTravlePostListByLocation(String[] location, int startPage, int pageNum);
 	 //front Travle sorted List 위치 기반
 	public List<ModelFrontTravlePost> getFrontTravlePostListBySortedLocation(String[] location, String standard);
 	//front Travle List Id기반
 	public List<ModelFrontTravlePost> getFrontTravlePostListById(String user_id);
+	//search word로 찾기
+    public abstract List<ModelFrontTravlePost> getFrontTravlePostBySearchWord(String searchWord);
+    
+    
+    
 	
 	//여행지 List, 여행지 하나 가져오기
 
@@ -64,8 +69,11 @@ public interface IDao {
     public abstract int insertConcern(ModelConcern concernList);
     public abstract int updateSyncState(String user_id);
     
-   
     
+    //인기 여행지 사진 가져오기
+    public abstract List<ModelImage> getPopularLocationImage(int count);
+    
+  
    
     
     

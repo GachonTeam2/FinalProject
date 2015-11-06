@@ -21,8 +21,6 @@ import net.sf.json.JSONSerializer;
 
 import com.lecture.finalproject.dao.DaoTravlePlace;
 import com.lecture.finalproject.model.ModelFrontTravlePost;
-import com.lecture.finalproject.service.IServiceRestProcess;
-import com.lecture.finalproject.service.ServiceRestProcessByLocation;
 
 
 
@@ -49,21 +47,23 @@ public class RestGetPosts extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
 		String method = request.getParameter("method");
-		IServiceRestProcess rest = new ServiceRestProcessByLocation();
+		DaoTravlePlace db = new DaoTravlePlace();
 		List<ModelFrontTravlePost> posts = null;
 		
-		if(method.equals("listByLocation")){		
+		
+		if(method.equals("listPost")){
+			posts = db.getFrontTravlePostList(Integer.parseInt(request.getParameter("startPage")), Integer.parseInt(request.getParameter("pageNum")));
+		}
+		else if(method.equals("listByLocation")){		
 			String[] location = decoder(request.getParameterValues("location"), request.getParameterValues("location").length);
-			posts = rest.listByLocation(location);
+			posts = db.getFrontTravlePostListByLocation(location, Integer.parseInt(request.getParameter("startPage")), Integer.parseInt(request.getParameter("pageNum")));
 		}
 		else if(method.equals("listBySortedLocation")){
 			int length = request.getParameterValues("location") == null ? 0 :  request.getParameterValues("location").length;
 			String[] location = decoder(request.getParameterValues("location"), length);
 			String standard = request.getParameter("standard");
-			posts = rest.listBySortedLocation(location, standard);
-		}
-		
-	
+			posts = db.getFrontTravlePostListBySortedLocation(location, standard);
+		}		
 		JSONArray jsonArray = JSONArray.fromObject(posts);
 		
 		Map<String, Object> map = new HashMap<String, Object>();

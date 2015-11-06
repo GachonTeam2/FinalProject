@@ -1,6 +1,7 @@
 package com.lecture.finalproject.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -12,10 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.lecture.finalproject.dao.DaoTravlePlace;
+import com.lecture.finalproject.model.ModelConcern;
 import com.lecture.finalproject.model.ModelFrontTravlePost;
 import com.lecture.finalproject.service.ServiceTwitterParser;
 
+import twitter4j.IDs;
+import twitter4j.PagableResponseList;
 import twitter4j.Twitter;
+import twitter4j.TwitterException;
 import twitter4j.User;
 
 /**
@@ -46,26 +51,35 @@ public class MypageController extends HttpServlet {
 	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
 		HttpSession session = request.getSession();
-		User user = null;
-		boolean isLogin = session.getAttribute("checkLogin") == null ? false : true;
-		DaoTravlePlace db = new DaoTravlePlace();	
-		List<ModelFrontTravlePost> posts = null; 
 		
+		boolean isLogin = session.getAttribute("checkLogin") == null ? false : true;
+		
+			
 		if(isLogin)
 		{
+			List<ModelFrontTravlePost> posts = null; 
+			List<ModelConcern> concerns = null;
+		
+			User user = null;
+			Twitter twitter = null;
+			
+			DaoTravlePlace db = new DaoTravlePlace();	
+	
+			twitter = (Twitter)session.getAttribute("twitter");
 			user = (User)session.getAttribute("twitterUser");
 			posts = db.getFrontTravlePostListById(Long.toString(user.getId()));
-						
+			concerns = db.getConcernList(Long.toString(user.getId()));
+		
 			request.setAttribute("userImage", user.getProfileImageURL());
 			request.setAttribute("userName", user.getName());
 			request.setAttribute("posts",posts);		
+			request.setAttribute("concerns", concerns);
+	
 		}
 		
         RequestDispatcher dispatcher = request.getRequestDispatcher("/myPage.jsp");
         dispatcher.forward(request, response);
     }
-	
-	
 	
 
 }

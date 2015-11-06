@@ -34,6 +34,28 @@ public class DaoTravlePlace implements IDao{
     private ResultSet rs = null;
     private PreparedStatement pstmt = null;
     
+    
+    @Override
+    public int getTravelPostCount() {
+    	
+    	int result = 0;
+    	
+    	try{
+    		String query = "select count(*) from travelpost_tb";
+    		pstmt = connection.prepareStatement(query);
+    		
+    		rs = pstmt.executeQuery();
+    		rs.next();
+    		
+    		result = rs.getInt("count(*)");
+    			
+    	}catch(SQLException e){
+    		System.out.println(e.getMessage());
+    	}
+    	
+    	return result;
+    }
+    
     @Override
     public ModelTravelPost getTravelPostOne(int travelPost_no) {
     	// TODO Auto-generated method stub
@@ -173,7 +195,7 @@ public class DaoTravlePlace implements IDao{
     }
     
     @Override
-    public List<ModelFrontTravlePost> getFrontTravlePostListByLocation(String[] location) {
+    public List<ModelFrontTravlePost> getFrontTravlePostListByLocation(String[] location,int startPage, int pageNum) {
     	// TODO Auto-generated method stub
     	
 		String str="";
@@ -190,18 +212,21 @@ public class DaoTravlePlace implements IDao{
     	 String query = "select image_url,travelPost_no, title,view_count, like_count, comment_count, address" +
 		  			" from image_tb natural join "
 		  				+ "(travelpost_tb  natural join location_tb) where " + str +
-		  						" group by travelPost_no";	
+		  						" group by travelPost_no" + 
+		  							" limit ?,?";
     	 
     	 System.out.println(query);
-    	 st = connection.createStatement();
-         rs =st.executeQuery(query);
-         if(st.execute(query))
-             rs = st.getResultSet();
-           
+    	 
+    	 pstmt = connection.prepareStatement(query);
+    	 pstmt.setInt(1, startPage);
+    	 pstmt.setInt(2, pageNum);
+         rs = pstmt.executeQuery();
+               
          while (rs.next()) {
        	  ModelFrontTravlePost one = new ModelFrontTravlePost();
-             
-             one.setImage_url(rs.getString("image_url"));
+   	  		String image_url = rs.getString("image_url").equals("null") == true ? "img/notFound.jpg" : rs.getString("image_url");
+            
+   	  		one.setImage_url(image_url);
              one.setAddress(rs.getString("address"));
              one.setComment_count(rs.getInt("comment_count"));
              one.setLike_count(rs.getInt("like_count"));
@@ -240,8 +265,9 @@ public class DaoTravlePlace implements IDao{
 
     		while (rs.next()) {
     			ModelFrontTravlePost one = new ModelFrontTravlePost();
-
-    			one.setImage_url(rs.getString("image_url"));
+    		  	String image_url = rs.getString("image_url").equals("null") == true ? "img/notFound.jpg" : rs.getString("image_url");
+              
+    			one.setImage_url(image_url);
     			one.setAddress(rs.getString("address"));
     			one.setComment_count(rs.getInt("comment_count"));
     			one.setLike_count(rs.getInt("like_count"));
@@ -294,8 +320,9 @@ public class DaoTravlePlace implements IDao{
            
          while (rs.next()) {
        	  ModelFrontTravlePost one = new ModelFrontTravlePost();
-             
-             one.setImage_url(rs.getString("image_url"));
+       	  String image_url = rs.getString("image_url").equals("null") == true ? "img/notFound.jpg" : rs.getString("image_url");
+       	
+             one.setImage_url(image_url);
              one.setAddress(rs.getString("address"));
              one.setComment_count(rs.getInt("comment_count"));
              one.setLike_count(rs.getInt("like_count"));
@@ -313,10 +340,41 @@ public class DaoTravlePlace implements IDao{
 	return result;
     }
     
-    
+	@Override
+	public List<ModelFrontTravlePost> getFrontTravlePostBySearchWord(String searchWord) {
+		// TODO Auto-generated method stub
+		 List<ModelFrontTravlePost> result = new ArrayList<ModelFrontTravlePost>();
+		 
+		 try{
+			 String query = "select * from (select * from (select address, travelPost_no from location_tb) as a natural join (select travelPost_no, title, like_count, comment_count from travelpost_tb) as b where address like ? or title like ?) as c natural join image_tb group by travelPost_no";
+			 pstmt = connection.prepareStatement(query);
+			 
+			 pstmt.setString(1, "%"+searchWord+"%");
+			 pstmt.setString(2, "%"+searchWord+"%");
+			 rs = pstmt.executeQuery();
+
+			 while (rs.next()) {
+				 ModelFrontTravlePost one = new ModelFrontTravlePost();
+				 String image_url = rs.getString("image_url").equals("null") == true ? "img/notFound.jpg" : rs.getString("image_url");
+			       	
+				 one.setImage_url(image_url);
+	             one.setAddress(rs.getString("address"));
+	             one.setComment_count(rs.getInt("comment_count"));
+	             one.setLike_count(rs.getInt("like_count"));
+	             one.setTitle(rs.getString("title"));
+	             result.add(one);
+			 }
+
+	    	}catch(SQLException e){
+	    		System.out.println(e.getMessage());
+	    	}
+	    	
+	    	return result;
+		
+	}
     
     @Override
-    public List<ModelFrontTravlePost> getFrontTravlePostList() {
+    public List<ModelFrontTravlePost> getFrontTravlePostList(int startPage, int pageNum) {
     	
     	  List<ModelFrontTravlePost> result = new ArrayList<ModelFrontTravlePost>();
     	  
@@ -324,16 +382,21 @@ public class DaoTravlePlace implements IDao{
     		  String query = "select image_url,travelPost_no, title,view_count, like_count, comment_count, address" +
     				  			" from image_tb natural join "
     				  				+ "(travelpost_tb  natural join location_tb)" +
-    				  						" group by travelPost_no";
-    		  st = connection.createStatement();
-              rs =st.executeQuery(query);
-              if(st.execute(query))
-                  rs = st.getResultSet();
+    				  						" group by travelPost_no" +
+    				  							" limit ?,?";
+    		  pstmt = connection.prepareStatement(query);
+    		  pstmt.setInt(1, (startPage - 1) * 10);
+    		  pstmt.setInt(2, pageNum);
+    		  
+    		  rs = pstmt.executeQuery();
                 
               while (rs.next()) {
             	  ModelFrontTravlePost one = new ModelFrontTravlePost();
                   
-                  one.setImage_url(rs.getString("image_url"));
+            	  String image_url = rs.getString("image_url").equals("null") == true ? "img/notFound.jpg" : rs.getString("image_url");
+            	
+            	  System.out.println(image_url);
+                  one.setImage_url(image_url);
                   one.setAddress(rs.getString("address"));
                   one.setComment_count(rs.getInt("comment_count"));
                   one.setLike_count(rs.getInt("like_count"));
@@ -662,5 +725,32 @@ public class DaoTravlePlace implements IDao{
 		 
 		return result;
 	}
+	 
+	@Override
+	public List<ModelImage> getPopularLocationImage(int count) {
+		// TODO Auto-generated method stub
+		List<ModelImage> result = new ArrayList<ModelImage>();
+		
+		try{
+			 String query = "select * from (select travelPost_no from travelpost_tb order by like_count desc limit ?) as a natural join image_tb group by travelPost_no";
+			 pstmt = connection.prepareStatement(query);
+			 pstmt.setInt(1, count);
+			
+			
+	    	rs = pstmt.executeQuery();
+	    		
+	    	while (rs.next()) {
+	    		ModelImage image = new ModelImage(rs.getString("image_url"),rs.getInt("travelPost_no"));
+	    		result.add(image);
+	    	}
+			 
+		 }catch(SQLException e){
+			 System.out.println(e.getMessage());
+		 }
+		 
+		return result;
+	}
+	
+
 	    
 }

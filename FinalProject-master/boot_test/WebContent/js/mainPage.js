@@ -2,7 +2,7 @@ $(document).ready(function(){
 	$('input:checkbox').change(function(){
 		var parameter = "";
 	
-		parameter = getCheckedLocationParameter("listByLocation");
+		parameter = getCheckedLocationParameter("listByLocation&startPage=1&pageNum=10");
 		loadXMLDoc(parameter);
 	})
 	
@@ -25,6 +25,39 @@ $(document).ready(function(){
 		loadXMLDoc(parameter);
 	})
 });
+
+function goPage(page)
+{
+	//checkbox 확인, like sorting확인
+	
+	var parameter ='';
+	
+	$('input:checkbox').map(function(index,element){
+		if($(element).is(':checked')){
+			parameter = getCheckedLocationParameter("listByLocation&startPage=" + page + "&pageNum=10");
+		}
+		
+	})
+	
+	
+	if($('input:checkbox'))
+}
+
+function checkIsLocationChecked(){
+	$('input:checkbox').map(function(index,element){
+		if($(element).is(':checked')){
+			return true;
+		}
+	})
+	
+	return false;
+}
+
+function checkIsSortdBtnClicked(){
+	$(':button').
+	
+}
+
 
 
 function getCheckedLocationParameter(method)

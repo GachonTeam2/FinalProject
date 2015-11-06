@@ -4,6 +4,7 @@
 <%@ page import="javax.servlet.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="javax.servlet.http.*" %>
+<%@ page import="com.lecture.finalproject.model.ModelFrontTravlePost" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
@@ -94,31 +95,29 @@
  
             <div class="container">
                 <div class="raw-fluid">
-                    <div class="category span2">
-                        <img src="img/a.jpg" class="img-rounded">
-                        Drive
-                    </div>
-    
-                        <div class="category span2">
-                        <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcREg7HWY4UlCUhhhahcXjHadjJoyOqI4pmq-Rtf__qdXfIz-5BVHEZ5kBM" class="img-rounded">
-                        Camping
-                    </div>
-        
-                    <div class="category span2">
-                        <img src="img/c.jpg" class="img-rounded">
-                        Leisure sports
-                    </div>
-    
-                    <div class="category span2">
-                        <img src="img/d.jpg" class="img-rounded">
-                        History
-                    </div>
-        
-                    <div class="category span2">
-                        <img src="img/e.jpg" class="img-rounded">
-                        Backpacking
-                    </div>
-                    <div class="span2"></div>
+                    
+                    	<%
+				List<ModelFrontTravlePost> posts = (List<ModelFrontTravlePost>) request.getAttribute("posts");
+
+				for (int i = 0; i < posts.size(); i++) {
+					ModelFrontTravlePost post = posts.get(i);
+			%>
+			<div class="span4">
+				<h2><%=post.getTitle()%></h2>
+				<img src="<%=post.getImage_url()%>" class="img-polaroid">
+				<p><%=post.getAddress()%></p>
+				<p>
+					<a class="active pull-right" href="#"><%=post.getComment_count()%><i
+						class="icon-comment"></i></a> <a class="active pull-right" href="#"><%=post.getLike_count()%><i
+						class="icon-heart"></i></a>
+				</p>
+			</div>
+			<%
+				}
+			%>
+                    
+                    
+                    
                 </div>
             </div>
             <hr>

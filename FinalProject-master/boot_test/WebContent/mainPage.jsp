@@ -3,7 +3,7 @@
 <%@ page import="java.io.*"%>
 <%@ page import="javax.servlet.*"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.lecture.finalproject.controller.*" %>
+
 <%@ page import="com.lecture.finalproject.dao.DaoTravlePlace" %>
 <%@ page import="com.lecture.finalproject.model.ModelFrontTravlePost" %>
 <%@ page import="javax.servlet.http.*"%>
@@ -13,7 +13,7 @@
 <head>
 <title>Main page</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/bootstrap-responsive.css" rel="stylesheet">
 <style type="text/css">
@@ -241,14 +241,13 @@ body {
 				</div>
 			</div>
 		</div>
-		<jsp:useBean id="regMgr" class="com.lecture.finalproject.controller.RegisterMgr" scope="page" />
 	
 		<!-- Example row of columns -->
 		<div class="row-fluid" id="post_list">
 			<%
 			DaoTravlePlace db = new DaoTravlePlace();
 			
-				List<ModelFrontTravlePost> postList = db.getFrontTravlePostList(); 
+				List<ModelFrontTravlePost> postList = db.getFrontTravlePostList(1,10); 
 				for(int i=0; i<postList.size(); i++){
 					ModelFrontTravlePost post = postList.get(i);
 				%>
@@ -267,53 +266,19 @@ body {
 				}
 				 %>
 	
-			
-			<!-- 
-			<div class="span4">
-				<h2>Title2</h2>
-				<img
-					src="http://postfiles13.naver.net/20140706_268/kyg91kr_1404646724295B8yOE_JPEG/20140706-IMG_9454%28%BF%F6%29.jpg?type=w1"
-					class="img-polaroid">
-				<p>text</p>
-				<p>
-					<a class="active pull-right" href="#"><i class="icon-comment"></i></a>
-					<a class="active pull-right" href="#"><i class="icon-heart"></i></a>
-				</p>
-			</div>
-
-			<div class="span4">
-				<h2>Title3</h2>
-				<img
-					src="http://postfiles12.naver.net/20140520_283/kyg91kr_1400558240969EagLv_JPEG/20140518-IMG_8651%28%BF%F6%C5%CD%B8%B6%C5%A9%29.jpg?type=w1"
-					class="img-polaroid">
-				<p>text</p>
-				<p>
-					<a class="active pull-right" href="#"><i class="icon-comment"></i></a>
-					<a class="active pull-right" href="#"><i class="icon-heart"></i></a>
-				</p>
-			</div>
--->
 		</div>
-		<div class="pagination pull-right">
-			<ul>
-				<li><a href="#">Prev</a></li>
-				<li><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-				<li><a href="#">Next</a></li>
-			</ul>
-		</div>
-		<br>
+		<%@include file="commonPage/paging.jsp" %>
+	<br>
 		<hr>
 		<div class="footer">
 			<p>Social Context Awareness Based Travel Recommendation System</p>
 		</div>
-	</div>
+
 
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/mainPage.js"></script>
+	<script src="${pageContext.request.contextPath}/js/paging.js"></script>
+	
 </body>
 </html>
