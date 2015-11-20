@@ -62,7 +62,7 @@ public class RestGetPosts extends HttpServlet {
 			int length = request.getParameterValues("location") == null ? 0 :  request.getParameterValues("location").length;
 			String[] location = decoder(request.getParameterValues("location"), length);
 			String standard = request.getParameter("standard");
-			posts = db.getFrontTravlePostListBySortedLocation(location, standard);
+			posts = db.getFrontTravlePostListBySortedLocation(location, standard,Integer.parseInt(request.getParameter("startPage")), Integer.parseInt(request.getParameter("pageNum")));
 		}		
 		JSONArray jsonArray = JSONArray.fromObject(posts);
 		

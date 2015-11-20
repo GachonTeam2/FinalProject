@@ -68,6 +68,7 @@ public class ServiceTwitterParser{
 		try {
 			user = twitter.verifyCredentials();
 			list = twitter.getUserTimeline(); 		
+			
 		} catch (TwitterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

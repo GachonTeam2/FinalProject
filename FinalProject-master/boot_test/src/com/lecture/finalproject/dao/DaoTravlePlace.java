@@ -207,18 +207,16 @@ public class DaoTravlePlace implements IDao{
 			else
 				str = str + " or " +  "city1 like '" + location[i] +"%'";
 		
-		try{
 		
+		try{
     	 String query = "select image_url,travelPost_no, title,view_count, like_count, comment_count, address" +
 		  			" from image_tb natural join "
 		  				+ "(travelpost_tb  natural join location_tb) where " + str +
 		  						" group by travelPost_no" + 
 		  							" limit ?,?";
     	 
-    	 System.out.println(query);
-    	 
     	 pstmt = connection.prepareStatement(query);
-    	 pstmt.setInt(1, startPage);
+    	 pstmt.setInt(1, (startPage - 1) * 10);
     	 pstmt.setInt(2, pageNum);
          rs = pstmt.executeQuery();
                
@@ -284,7 +282,7 @@ public class DaoTravlePlace implements IDao{
     }
     
     @Override
-    public List<ModelFrontTravlePost> getFrontTravlePostListBySortedLocation(String[] location, String standard) {
+    public List<ModelFrontTravlePost> getFrontTravlePostListBySortedLocation(String[] location, String standard, int startPage, int pageNum) {
     	// TODO Auto-generated method stub
     	
 		String str="";
@@ -310,14 +308,15 @@ public class DaoTravlePlace implements IDao{
 		  			" from image_tb natural join "
 		  				+ "(travelpost_tb  natural join location_tb)" + str +
 		  						" group by travelPost_no" +
-		  							" ORDER BY " + standard + " DESC";
+		  							" ORDER BY " + standard + " DESC" +
+		  								" limit ?,?";
     	 
     	 System.out.println(query);
-    	 st = connection.createStatement();
-         rs =st.executeQuery(query);
-         if(st.execute(query))
-             rs = st.getResultSet();
-           
+    	 pstmt = connection.prepareStatement(query);
+    	 pstmt.setInt(1, (startPage - 1) * 10);
+    	 pstmt.setInt(2, pageNum);
+    	 rs = pstmt.executeQuery();
+  
          while (rs.next()) {
        	  ModelFrontTravlePost one = new ModelFrontTravlePost();
        	  String image_url = rs.getString("image_url").equals("null") == true ? "img/notFound.jpg" : rs.getString("image_url");

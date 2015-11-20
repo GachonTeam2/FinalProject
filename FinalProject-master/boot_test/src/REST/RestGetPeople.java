@@ -2,6 +2,8 @@ package REST;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,10 +17,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.lecture.finalproject.model.ModelUser;
+import com.lecture.finalproject.service.ServiceGetFriendsInfo;
+import com.lecture.finalproject.service.ServiceGetWeight;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import twitter4j.PagableResponseList;
+import twitter4j.ResponseList;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.User;
@@ -52,9 +57,20 @@ public class RestGetPeople extends HttpServlet {
 		
 		String method = request.getParameter("method");
 		List<ModelUser> listFriends = new ArrayList<ModelUser>();
+		
+		ResponseList<User> friendUserObject = null;
+		ServiceGetFriendsInfo firendsInfoHelper = new ServiceGetFriendsInfo();
+		Map<String, Float> friendsNameAndWeight = null;
+		
 	
 		if(method.equalsIgnoreCase("getFrindAndFollowerList")){
-			getFriendAndFollowerList(twitter,listFriends);
+			firendsInfoHelper.getFriendAndFollowerList(twitter, listFriends);
+		}
+		if(method.equalsIgnoreCase("getFriendFamilityWeight")){
+			String[] friendNames = decoder(request.getParameterValues("name"), request.getParameterValues("name").length);
+			friendUserObject = firendsInfoHelper.getFriendsObject(twitter, friendNames);
+			ServiceGetWeight friendsWeightHelper = new ServiceGetWeight(friendUserObject);
+			friendsNameAndWeight = friendsWeightHelper.getFriendsWeight();
 		}
 		
 		JSONArray FrinedJsonArray = JSONArray.fromObject(listFriends);
@@ -68,24 +84,23 @@ public class RestGetPeople extends HttpServlet {
 		out.println(jsonObject);	
 	}
 	
-	private void getFriendAndFollowerList(Twitter twitter, List<ModelUser> listFriends){
+	
+	
+	private String[] decoder(String[] friendsName, int length)
+	{
 		
-		   try {
-	            long cursor = -1;
-	            PagableResponseList<User> pagableFollowings;
-	            do {
-	                pagableFollowings = twitter.getFriendsList(twitter.getId(), cursor);
-	                for (User user : pagableFollowings) {
-	                	ModelUser friend = new ModelUser(Long.toString(user.getId()), user.getName(), user.getProfileImageURL(),false);
-	           
-	                    listFriends.add(friend); // ArrayList<User>
-	                }
-	            } while ((cursor = pagableFollowings.getNextCursor()) != 0);
-
-	        } catch (TwitterException e) {
-	        	System.out.println(e.getMessage());
-	        }
+		String[] result = new String[length];
+			
+		try {
+		for(int i=0; i<length; i++)
+				result[i] = URLDecoder.decode(friendsName[i],"UTF-8");	
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
+		
+		return result;
 	}
-
+	
 	
 }

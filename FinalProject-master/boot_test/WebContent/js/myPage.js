@@ -4,7 +4,9 @@ $(document).ready(function(){
 		console.log(parameter);
 		loadXMLDoc(parameter)	
 		
-	})
+	}
+	
+	)
 })
 
 

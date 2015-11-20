@@ -30,7 +30,7 @@ public interface IDao {
 	//front Travle List 위치기반
 	public abstract List<ModelFrontTravlePost> getFrontTravlePostListByLocation(String[] location, int startPage, int pageNum);
 	 //front Travle sorted List 위치 기반
-	public List<ModelFrontTravlePost> getFrontTravlePostListBySortedLocation(String[] location, String standard);
+	public List<ModelFrontTravlePost> getFrontTravlePostListBySortedLocation(String[] location, String standard,int startPage, int pageNum);
 	//front Travle List Id기반
 	public List<ModelFrontTravlePost> getFrontTravlePostListById(String user_id);
 	//search word로 찾기
