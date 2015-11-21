@@ -17,8 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.lecture.finalproject.model.ModelUser;
-import com.lecture.finalproject.service.ServiceGetFriendsInfo;
-import com.lecture.finalproject.service.ServiceGetWeight;
+import com.lecture.finalproject.service.FriendsInfoHelper;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -56,21 +55,18 @@ public class RestGetPeople extends HttpServlet {
 		Twitter twitter = (Twitter)session.getAttribute("twitter");
 		
 		String method = request.getParameter("method");
-		List<ModelUser> listFriends = new ArrayList<ModelUser>();
 		
-		ResponseList<User> friendUserObject = null;
-		ServiceGetFriendsInfo firendsInfoHelper = new ServiceGetFriendsInfo();
 		Map<String, Float> friendsNameAndWeight = null;
+		FriendsInfoHelper friendHelper = new FriendsInfoHelper(twitter);
 		
+		List<ModelUser> listFriends = null;
 	
 		if(method.equalsIgnoreCase("getFrindAndFollowerList")){
-			firendsInfoHelper.getFriendAndFollowerList(twitter, listFriends);
+			listFriends = friendHelper.getFriendAndFollowerList();
 		}
 		if(method.equalsIgnoreCase("getFriendFamilityWeight")){
 			String[] friendNames = decoder(request.getParameterValues("name"), request.getParameterValues("name").length);
-			friendUserObject = firendsInfoHelper.getFriendsObject(twitter, friendNames);
-			ServiceGetWeight friendsWeightHelper = new ServiceGetWeight(friendUserObject);
-			friendsNameAndWeight = friendsWeightHelper.getFriendsWeight();
+			friendsNameAndWeight = friendHelper.getFriendsWeight(friendNames);
 		}
 		
 		JSONArray FrinedJsonArray = JSONArray.fromObject(listFriends);

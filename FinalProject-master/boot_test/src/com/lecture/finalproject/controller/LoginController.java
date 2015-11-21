@@ -2,6 +2,7 @@ package com.lecture.finalproject.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.lecture.finalproject.dao.DaoTravlePlace;
 import com.lecture.finalproject.model.ModelUser;
+import com.lecture.finalproject.service.FriendsInfoHelper;
 import com.lecture.finalproject.service.ServiceLogin;
 import com.lecture.finalproject.service.ServiceTwitterParser;
 
@@ -91,6 +93,13 @@ public class LoginController extends HttpServlet {
 			
 			session.setAttribute("twitterUser", user);		
 			session.setAttribute("userObject", inputUser);
+			
+			FriendsInfoHelper friendHelper = new FriendsInfoHelper(twitter);
+			String[] srch = new String[] {"HYUNMIN KIM"};
+			
+			Map<String,Float> temp = null;
+			temp = friendHelper.getFriendsWeight(srch);
+			System.out.println(temp);
 		}
 		
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("/loginPage.jsp");
