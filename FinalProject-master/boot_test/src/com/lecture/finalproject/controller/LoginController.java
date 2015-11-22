@@ -94,12 +94,12 @@ public class LoginController extends HttpServlet {
 			session.setAttribute("twitterUser", user);		
 			session.setAttribute("userObject", inputUser);
 			
-			FriendsInfoHelper friendHelper = new FriendsInfoHelper(twitter);
-			String[] srch = new String[] {"HYUNMIN KIM"};
+			FriendsInfoHelper friendHelper = new FriendsInfoHelper(twitter,user);
+			String[] srch = new String[] {"KIMKhyunm91"};
 			
 			Map<String,Float> temp = null;
 			temp = friendHelper.getFriendsWeight(srch);
-			System.out.println(temp);
+			System.out.println(temp);	
 		}
 		
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("/loginPage.jsp");
