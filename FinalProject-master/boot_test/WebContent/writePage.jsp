@@ -96,7 +96,7 @@
 	var selDiv = "";
 	var cnt=0;
     var text="";
-    
+    var latitude ="";
 	function addForm() {
 		var addedFormDiv = document.getElementById("pre_set");
 	    
@@ -115,6 +115,22 @@
 		
 		
 	}
+    function lat()
+    {
+    	
+    }
+	
+	 function winopen(){
+	        win = window.open('map.jsp', 'ot', 'width=500px, height=500px');
+	       
+	    }
+	    function winmessage(msg){
+	        var ab=win.document.getElementById('ab');
+	       alert(ab);
+	    }
+	    function winclose(){
+	        win.close();
+	    }
 
 	function delForm() {
 
@@ -198,7 +214,7 @@ function handleFileSelect(e) {
 }
 
 
- /*   
+ 
 function handleForm(e) {
     e.preventDefault();
     var data = new FormData();
@@ -223,7 +239,7 @@ function handleForm(e) {
     
     xhr.send(data);
 }
-   */ 
+   
 function removeFile(e) {
     var file = $(this).data("file");
     for(var i=0;i<storedFiles.length;i++) {
@@ -289,6 +305,7 @@ function removeFile(e) {
                     <input class="textwidth textheight" type="text"
                         placeholder="Title" name = "istitle"> <br>
                 </div>
+               
             </div>
         </div>
 
@@ -309,10 +326,9 @@ function removeFile(e) {
                                 </div>
                                                                  
                                 <div class="file_input_div">
-                                  <a href="map2.html" target="_blank">
-                                        <img src="map.png" class="file_input_img_btn"/>
-                                         <input type="button" name="file_1" class="file_input_hidden" />
-                                  </a>    
+                                      
+                                         <input type="button" name="file_1" class="file_input_hidden"  />
+                                      <img src="map.png" class="file_input_img_btn">
                                 </div>
                                     </div>
                             
@@ -323,8 +339,9 @@ function removeFile(e) {
                       <div class="span7" >
                            <div id="selectedFiles">
                                  
-
+							
                             </div>
+                            
                             <textarea class="textwidth" name="istext" rows="10"  id ="abc"></textarea>
                             
                             </button>
@@ -363,8 +380,10 @@ function removeFile(e) {
     </div>
 
 
-    </div>
+   
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+
+   
     </body>
 </html>
