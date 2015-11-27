@@ -11,8 +11,8 @@ import com.lecture.finalproject.model.ModelTravelPost;
 
 public class Travelpost_db {
     private static Logger logger = LoggerFactory.getLogger(Travelpost_db.class);
+ 
     ModelTravelPost tp = new ModelTravelPost();
-    
     private Connection con = JDBCMannager.getInstance();
     private Statement stmt = null;
     private ResultSet rs = null;

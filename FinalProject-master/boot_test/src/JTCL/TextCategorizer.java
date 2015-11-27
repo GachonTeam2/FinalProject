@@ -75,7 +75,7 @@ public class TextCategorizer {
 //		System.out.println("5-7");
 		this.categories.clear();
 		
-		String path = "C:\\Users\\park\\Documents\\FinalProject\\boot_test\\resource\\fingerPrinter\\";
+		String path = "C:\\Users\\park\\Documents\\FinalProject\\FinalProject-master\\boot_test\\resource\\fingerPrinter\\";
 
 		try {
 			MyProperties properties = new MyProperties();

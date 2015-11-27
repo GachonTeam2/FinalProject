@@ -37,11 +37,25 @@ public class ConcernRecommendController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("UTF-8"); 
 		
-		String searchWord = new String(request.getParameter("searchWord") .getBytes("8859_1"), "UTF-8"); 
-		
+		String checkHash;
 		DaoTravlePlace db = new DaoTravlePlace();
+		List<ModelFrontTravlePost> posts = null;
 		
-		List<ModelFrontTravlePost> posts = db.getFrontTravlePostBySearchWord(searchWord);		
+		String searchWord = new String(request.getParameter("searchWord") .getBytes("8859_1"), "UTF-8"); 
+		checkHash = searchWord.substring(0, 1);
+		
+		
+		
+		//hash Tag 검색인경우
+		if(checkHash.equals("#"))
+		{
+			searchWord = searchWord.substring(1);
+			posts = db.getFrontTravlePostByHashTag(searchWord);
+			
+		}//Hash tag검색이 아닌경우
+		else
+			 posts = db.getFrontTravlePostBySearchWord(searchWord);		
+		
 		
 		request.setAttribute("posts", posts);
 		

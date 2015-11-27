@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.StringTokenizer;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -25,6 +24,8 @@ public class ServiceTravelParser {
     public ModelTravelPost tp_M =new ModelTravelPost();
     public ModelLocation tp_L = new ModelLocation();
     public ModelImage img = new ModelImage();
+    
+    private String content;
     int no=0;
     String[] token;
     int no_add=0;
@@ -87,6 +88,11 @@ public class ServiceTravelParser {
                     tp_L.setLongitude(node.getTextContent());
                     
                 }
+                else if(node.getNodeName().equals("overview"))
+                {
+                	content = node.getTextContent();
+                	System.out.println(content);
+                }
                 
                 else if(node.getNodeName().equals("title")){
                     no++;
@@ -96,14 +102,14 @@ public class ServiceTravelParser {
                     tp_db.insert("insert into travelpost_tb(travelPost_no,title,travelPost_date,view_count,user_id) values("+no+","+make(tp_M.getTitle())+","+"now(),"+"0,"+make("khyunm91")+")");
                     tp_db.insert("insert into location_tb(city1,address,latitude,longitude,travelPost_no) values("+make(tp_L.getCity1())+","+make(tp_L.getAddress())+","+make(tp_L.getLatitude())+","+make(tp_L.getLongitude())+","+no+")");;
                     tp_db.insert("insert into image_tb(image_url, travelpost_no) values("+make(img.getImage_url())+","+no+")");
+                    tp_db.insert("insert into information_tb values('" + content + "'," + no +")");
                     tp_L.setAddress(null);
                     tp_L.setCity1(null);
                     tp_L.setCity2(null);
                     tp_L.setLongitude(null);
                     tp_L.setLatitude(null);
                     img.setImage_url(null);
-                    System.out.println(tp_M.getTitle()+"("+no+")");
-                    System.out.println(make(img.getImage_url()));
+                    System.out.println(content);
                 }
             }
         }

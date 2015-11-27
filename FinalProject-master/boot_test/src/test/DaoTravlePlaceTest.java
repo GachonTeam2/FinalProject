@@ -8,7 +8,9 @@ import org.junit.Test;
 
 import com.lecture.finalproject.dao.DaoTravlePlace;
 import com.lecture.finalproject.model.ModelConcern;
+import com.lecture.finalproject.model.ModelFeature;
 import com.lecture.finalproject.model.ModelFrontTravlePost;
+import com.lecture.finalproject.model.ModelHash;
 import com.lecture.finalproject.model.ModelImage;
 import com.lecture.finalproject.model.ModelInformation;
 import com.lecture.finalproject.model.ModelTravelPost;
@@ -19,12 +21,16 @@ public class DaoTravlePlaceTest {
 	public void test() {
 		DaoTravlePlace one = new DaoTravlePlace();
 		List<ModelFrontTravlePost> result = null;
-		String location[] = {"전라"};
+		int result1 = 0;
 		
-		result = one.getFrontTravlePostListByLocation(location, 1, 10);
-				
-		System.out.println(result);
+		ModelFeature two = new ModelFeature("test",1);
 		
+		result = one.getFrontTravlePostByHashTag("test");
+		
+		for(int i= 0;i<result.size(); i++){
+			System.out.println(result);
+		}
 	}
+
 
 }

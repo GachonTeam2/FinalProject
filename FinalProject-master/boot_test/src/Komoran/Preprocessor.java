@@ -46,13 +46,11 @@ public class Preprocessor {
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
-		
-		
-	
+			
 		System.out.println(temp);
 		return temp;
 	}
-	
+		
 	public  List<String> getMeaningWord(String preProTileLine){
 		
 		BufferedReader reader = new BufferedReader(new StringReader(preProTileLine));

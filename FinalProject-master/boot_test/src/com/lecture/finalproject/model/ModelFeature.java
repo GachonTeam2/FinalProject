@@ -9,6 +9,7 @@ public class ModelFeature {
     
     private String feature          ;
     private int travelPost_no    ;
+    
     public ModelFeature(String feature, int travelPost_no) {
         super();
         this.feature = feature;

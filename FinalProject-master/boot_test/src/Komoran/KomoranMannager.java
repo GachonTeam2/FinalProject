@@ -12,7 +12,7 @@ public class KomoranMannager {
 		
 		if(komaran == null){
 			try{
-				komaran = new Komoran("C:\\Users\\park\\Documents\\FinalProject\\boot_test\\resource\\models-full");	
+				komaran = new Komoran("C:\\Users\\park\\Documents\\FinalProject\\FinalProject-master\\boot_test\\resource\\models-full");	
 			}catch(Exception e){
 				System.out.println(e.getMessage());
 			}

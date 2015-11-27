@@ -29,7 +29,7 @@ public class TextCatDriver {
 		}
 		
 		TextCategorizer guesser = new TextCategorizer();  
-		guesser.setConfFiles("C:\\Users\\park\\Documents\\FinalProject\\boot_test\\resource\\fingerPrinter\\textcat.conf");
+		guesser.setConfFiles("C:\\Users\\park\\Documents\\FinalProject\\FinalProject-master\\boot_test\\resource\\fingerPrinter\\textcat.conf");
 		
 		return guesser.categorize(s);
 	}

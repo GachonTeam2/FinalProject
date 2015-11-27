@@ -57,10 +57,10 @@ public interface IDao {
     //여행지에 대한 설명 정보 
     public abstract List<ModelInformation> getInformationList(int travelPost_no);
     public abstract ModelInformation getInformation(int travelPost_no);
+    public abstract List<ModelInformation> getPostInformationTotalList();
     
     
     public abstract List<ModelHash> getHashList(int travelPost_no);
-    
     public abstract List<ModelFeature> getFeatureList(int travelPost_no);
     
     
@@ -73,10 +73,12 @@ public interface IDao {
     //인기 여행지 사진 가져오기
     public abstract List<ModelImage> getPopularLocationImage(int count);
     
-  
+    
+    //여행지 feature 넣기
+    public abstract int insertPostFeature(ModelFeature feature);
+    
+    public abstract int insertPostHash(ModelHash hashTag);
+    
+    public abstract List<ModelFrontTravlePost> getFrontTravlePostByHashTag(String searchHashTag);
    
-    
-    
-    
-
 }

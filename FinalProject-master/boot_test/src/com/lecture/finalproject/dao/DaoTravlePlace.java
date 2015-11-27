@@ -345,7 +345,7 @@ public class DaoTravlePlace implements IDao{
 		 List<ModelFrontTravlePost> result = new ArrayList<ModelFrontTravlePost>();
 		 
 		 try{
-			 String query = "select * from (select * from (select address, travelPost_no from location_tb) as a natural join (select travelPost_no, title, like_count, comment_count from travelpost_tb) as b where address like ? or title like ?) as c natural join image_tb group by travelPost_no";
+			 String query = "select * from (select * from (select address, travelPost_no from location_tb) as a natural join (select travelPost_no, title, like_count, comment_count from travelpost_tb) as b where address like ? or title like ?) as c natural  join image_tb group by travelPost_no";
 			 pstmt = connection.prepareStatement(query);
 			 
 			 pstmt.setString(1, "%"+searchWord+"%");
@@ -751,5 +751,106 @@ public class DaoTravlePlace implements IDao{
 	}
 	
 
-	    
+	@Override
+	public List<ModelInformation> getPostInformationTotalList() {
+		
+		List<ModelInformation> result = new ArrayList<ModelInformation>();
+		
+		try{
+			String query = "select * from information_tb";
+			pstmt = connection.prepareStatement(query);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				ModelInformation information = new ModelInformation(rs.getString("travel_content"), rs.getInt("travelPost_no"));
+	    		result.add(information);
+	    	}
+		}catch(SQLException e){
+			System.out.println(e.getMessage());
+		}
+
+		return result;
+	}
+	
+	
+	@Override
+	public int insertPostFeature(ModelFeature feature) {
+		
+		int result = 0;
+		
+		try{
+			String query = "insert into feature_tb values(?,?)";
+			
+			pstmt = connection.prepareStatement(query);
+			pstmt.setInt(1, feature.getTravelPost_no());
+			pstmt.setString(2, feature.getFeature());
+			
+			result = pstmt.executeUpdate();
+	
+		}catch(SQLException e){
+			System.out.println(e.getMessage());
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public int insertPostHash(ModelHash hashTag) {
+		
+		int result = 0;
+		
+		try{
+			String query = "insert into hash_tb values(?,?)";
+		
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setString(1, hashTag.getHashTag());
+			pstmt.setInt(2, hashTag.getTravelPost_no());
+			
+			result = pstmt.executeUpdate();
+			
+		}catch(SQLException e){
+			System.out.println(e.getMessage());
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public List<ModelFrontTravlePost> getFrontTravlePostByHashTag(String searchHashTag) {
+		List<ModelFrontTravlePost> result = new ArrayList<ModelFrontTravlePost>();
+		
+		try{
+			String query = "select * from" +	
+					"(select * from"+
+							" (select * from"+
+								" (select travelPost_no from hash_tb where hashTag like ?) as a "+
+								" natural join"+
+								" (select * from image_tb group by travelPost_no) as b) as c"+
+							" natural join"+
+							" (select address, travelPost_no from location_tb) as d) as e"+
+						" natural join"+
+						" (select travelPost_no, title, like_count, comment_count from travelpost_tb) as f";
+			
+			pstmt = connection.prepareStatement(query);
+			pstmt.setString(1, "%" + searchHashTag);
+			rs = pstmt.executeQuery();
+			
+			 while (rs.next()) {
+				 ModelFrontTravlePost one = new ModelFrontTravlePost();
+				 String image_url = rs.getString("image_url").equals("null") == true ? "img/notFound.jpg" : rs.getString("image_url");
+				 one.setImage_url(image_url);
+	             one.setAddress(rs.getString("address"));
+	             one.setComment_count(rs.getInt("comment_count"));
+	             one.setLike_count(rs.getInt("like_count"));
+	             one.setTitle(rs.getString("title"));
+	             result.add(one);
+			 }
+		}catch(SQLException e){
+			System.out.println(e.getMessage());
+		}
+
+		return result;
+	}
 }

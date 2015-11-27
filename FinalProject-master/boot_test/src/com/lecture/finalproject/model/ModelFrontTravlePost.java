@@ -7,6 +7,7 @@ public class ModelFrontTravlePost {
 	private int comment_count;
 	private String image_url;
 	private String address;
+	
 	public ModelFrontTravlePost(String title, int like_count, int comment_count, String image_url, String address) {
 		super();
 		this.title = title;
