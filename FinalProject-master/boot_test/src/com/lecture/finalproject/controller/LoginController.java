@@ -95,7 +95,7 @@ public class LoginController extends HttpServlet {
 			session.setAttribute("userObject", inputUser);
 			
 			FriendsInfoHelper friendHelper = new FriendsInfoHelper(twitter,user);
-			String[] srch = new String[] {"KIMKhyunm91"};
+			String[] srch = new String[] {"KIMKhyunm91","jong882391"};
 			
 			Map<String,Float> temp = null;
 			temp = friendHelper.getFriendsWeight(srch);

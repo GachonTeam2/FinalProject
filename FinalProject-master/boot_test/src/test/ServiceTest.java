@@ -12,7 +12,7 @@ public class ServiceTest {
 	public void test() {
 		ServiceHashExtractHelper one = new ServiceHashExtractHelper();	
 		
-		one.extractHashTagTest();
+	
 	}
 
 }

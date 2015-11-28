@@ -184,12 +184,14 @@ public class TextCategorizer {
 		byte[] data = new byte[1024];
 		int read;
 		String s = "";
-
+		
 		if (args.length == 0 || args[0].equals("-categorize")) {
 			try {
 				while ((read = System.in.read(data)) != (-1)) {
 					s += new String(data, 0, read);
 //					System.out.println(s);
+					
+					
 				}
 			} catch (IOException ioe) {
 				ioe.printStackTrace();

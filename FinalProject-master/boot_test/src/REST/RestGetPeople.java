@@ -57,7 +57,7 @@ public class RestGetPeople extends HttpServlet {
 		String method = request.getParameter("method");
 		
 		Map<String, Float> friendsNameAndWeight = null;
-		//FriendsInfoHelper friendHelper = new FriendsInfoHelper(twitter);
+		FriendsInfoHelper friendHelper = new FriendsInfoHelper(twitter, null);
 		
 		List<ModelUser> listFriends = null;
 	
