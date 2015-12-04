@@ -36,7 +36,8 @@ public class ServiceHashExtractHelper {
     	
     	String tempKeyword;
     	List<String> keywordList = null; 
-    	ModelFeature feature = null;
+    	List<ModelFeature> feature = null;
+    	ModelFeature feat = null;
     	
     	List<ModelInformation> infoList = db.getPostInformationTotalList();
     	
@@ -44,11 +45,15 @@ public class ServiceHashExtractHelper {
     		
     		tempKeyword = pc.preProcess(infoList.get(i).getTravel_content());
     		keywordList = pc.getMeaningWord(tempKeyword);
-    		
     		feature = jtcl.getFeature(keywordList);
-    		feature.setTravelPost_no(infoList.get(i).getTravelPost_no());
+    		for(int j=0;j<feature.size();j++)
+    		{
+    			
+    			feature.get(j).setTravelPost_no(infoList.get(i).getTravelPost_no());
     		
-    		db.insertPostFeature(feature);
+    		db.insertPostFeature(feature.get(j));
+    		
+    		}
     	}
     	
     }

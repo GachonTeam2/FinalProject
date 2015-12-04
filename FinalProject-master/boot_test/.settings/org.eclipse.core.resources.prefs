@@ -1,4 +1,8 @@
 eclipse.preferences.version=1
+encoding//resource/test2.txt=UTF-8
 encoding//src/com/lecture/finalproject/controller/LoginController.java=UTF-8
 encoding//src/com/lecture/finalproject/service/FriendsInfoHelper.java=UTF-8
+encoding//src/com/lecture/finalproject/service/ServiceHashExtractHelper.java=UTF-8
 encoding//src/com/lecture/finalproject/service/ServiceInfoSynchronize.java=UTF-8
+encoding//src/com/lecture/finalproject/service/ServiceTwitterParser.java=UTF-8
+encoding//src/com/lecture/finalproject/service/pagingHelper.java=UTF-8

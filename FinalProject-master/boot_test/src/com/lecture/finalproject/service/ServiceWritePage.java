@@ -103,9 +103,11 @@ public class ServiceWritePage extends HttpServlet {
 		out.println(title);
 		post.setTitle(title);
 		S3Upload s3 = new S3Upload();
+		
 		s3.fileUpload("team2tr", file);
+		
 		img.setImage_url(s3.getFileURL("team2tr", uploadFileName));
-
+		
 		tp_db.insert("insert into travelpost_tb(title,travelPost_date,user_id) values("+make(post.getTitle())+","+"now(),"+make("khyunm91")+")");
 		num = tp_db.findTravelPost_no(post.getTitle());
 

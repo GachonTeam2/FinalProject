@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 public class ModelConcern {
     private static Logger logger = LoggerFactory.getLogger(ModelConcern.class);
     
-    private String interest ;
+    private String  interest ;
     private String user_id  ;
     public ModelConcern(String interest, String user_id) {
         super();
